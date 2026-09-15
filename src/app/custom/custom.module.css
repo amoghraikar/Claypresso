@@ -1,0 +1,541 @@
+.customPage {
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  padding-bottom: var(--space-24);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.heroSection {
+  padding: var(--space-16) 0 var(--space-12);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+}
+
+.heroContent {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  background: var(--color-peach);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-4);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  line-height: var(--line-display-xl);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 44px;
+    line-height: 1.05;
+  }
+}
+
+.heroSubtitle {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--space-8);
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroCtaGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.primaryHeroBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.primaryHeroBtn:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-ivory);
+}
+
+.secondaryHeroBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--color-espresso);
+  font-weight: 600;
+  font-size: var(--text-body);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-light-taupe);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.secondaryHeroBtn:hover {
+  border-color: var(--color-warm-brown);
+  background: rgba(246, 217, 200, 0.3);
+}
+
+/* ==========================================================================
+   TACTILE WORKSPACE VISUAL SECTION
+   ========================================================================== */
+.workspaceVisualSection {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.workspaceBoard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.boardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-4);
+}
+
+.boardTagline {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+}
+
+.boardTagline span {
+  color: var(--color-warm-brown);
+}
+
+.boardBadge {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-warm-brown);
+  background: var(--color-cream);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+}
+
+.transformationGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .transformationGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.stageCard {
+  background: var(--color-cream);
+  border: 1px solid var(--color-light-taupe);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  position: relative;
+  transition: transform var(--duration-card) var(--ease-clay-squish);
+}
+
+.stageCard:hover {
+  transform: translateY(-3px);
+}
+
+.stageLabel {
+  display: inline-block;
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-3);
+}
+
+.stageImageWrap {
+  width: 100%;
+  height: 240px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  background: var(--color-white);
+}
+
+.stageImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stageTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  color: var(--color-espresso);
+  margin-bottom: 4px;
+}
+
+.stageDesc {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.stageNotePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-espresso);
+  background: var(--color-peach);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  margin-top: var(--space-3);
+}
+
+.connectorCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-warm-brown);
+}
+
+.connectorBadge {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-espresso);
+  background: var(--color-peach);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.connectorLine {
+  width: 2px;
+  height: 48px;
+  background: dashed 2px var(--color-warm-brown);
+}
+
+@media (max-width: 860px) {
+  .connectorCol {
+    transform: rotate(90deg);
+    margin: var(--space-2) 0;
+  }
+}
+
+/* ==========================================================================
+   HOW IT WORKS 4-STEP SECTION
+   ========================================================================== */
+.howItWorksSection {
+  padding: var(--space-16) 0;
+  background: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto var(--space-12);
+}
+
+.sectionEyebrow {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+}
+
+.sectionDesc {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 600px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.stepCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--duration-card) var(--ease-clay-squish);
+}
+
+.stepCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-warm-brown);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.stepText {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==========================================================================
+   PRODUCTION & SHIPPING TIMELINE NOTICE
+   ========================================================================== */
+.timelineBannerSection {
+  padding: var(--space-12) 0;
+}
+
+.timelineBanner {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .timelineBanner {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-6);
+  }
+}
+
+.timelineCol {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.timelineIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--color-warm-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timelineHeading {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.timelineHighlight {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin-bottom: 2px;
+}
+
+.timelineSubtext {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ==========================================================================
+   INSTAGRAM FALLBACK SECTION
+   ========================================================================== */
+.socialChatSection {
+  padding: var(--space-10) 0;
+}
+
+.socialChatCard {
+  background: var(--color-ivory);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.socialChatContent {
+  max-width: 520px;
+}
+
+.socialChatEyebrow {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-warm-brown);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.socialChatTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.socialChatDesc {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.instagramBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-hover) var(--ease-smooth);
+}
+
+.instagramBtn:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-1px);
+  color: var(--color-ivory);
+}
+
+/* ==========================================================================
+   BOTTOM INVITATION CTA
+   ========================================================================== */
+.bottomInvitation {
+  padding: var(--space-12) 0 0;
+  text-align: center;
+}
+
+.invitationTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-3);
+}
+
+.invitationDesc {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}

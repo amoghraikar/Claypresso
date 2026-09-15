@@ -1,0 +1,717 @@
+/* ==========================================================================
+   HOMEPAGE STYLES — CLAYPRESSO
+   ========================================================================== */
+
+/* 1. HERO SECTION */
+.heroSection {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-16);
+  background: var(--color-bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  z-index: 2;
+}
+
+.heroTagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  background: var(--color-cream);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  border: 1px solid var(--color-border);
+  animation: clayFadeUp 800ms var(--ease-clay-settle) 60ms both;
+}
+
+.heroHeadline {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  line-height: var(--line-display-xl);
+  color: var(--color-espresso);
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.revealLineWrapper {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+.revealLine {
+  display: block;
+  animation: textRevealUp 920ms var(--ease-clay-settle) both;
+}
+
+.revealLineDelay1 {
+  animation-delay: 140ms;
+}
+
+.revealLineDelay2 {
+  animation-delay: 280ms;
+}
+
+.heroHeadline em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-warm-brown);
+}
+
+.heroSupporting {
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 520px;
+  margin: 0;
+  animation: clayFadeUp 850ms var(--ease-clay-settle) 360ms both;
+}
+
+.heroCtaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+  margin-top: var(--space-2);
+  animation: clayFadeUp 850ms var(--ease-clay-settle) 480ms both;
+}
+
+/* Editorial Clay Composition & Clay Drop */
+.heroComposition {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroMainImageWrapper {
+  position: relative;
+  width: 82%;
+  height: 88%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-clay-card);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  animation: clayDrop 950ms var(--ease-clay-squish) 180ms both;
+  will-change: transform, opacity;
+}
+
+.heroFloatingBadge {
+  position: absolute;
+  bottom: 24px;
+  left: -20px;
+  background: var(--color-bg-surface);
+  padding: 12px 20px;
+  border-radius: var(--radius-bento);
+  box-shadow: var(--shadow-clay-pill);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
+  animation: clayDrop 1050ms var(--ease-clay-squish) 520ms both;
+  will-change: transform, opacity;
+}
+
+.heroFloatingAccent {
+  position: absolute;
+  top: 16px;
+  right: -12px;
+  width: 130px;
+  height: 130px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-clay-card);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  z-index: 3;
+  animation: clayDrop 1000ms var(--ease-clay-squish) 360ms both;
+  will-change: transform, opacity;
+}
+
+/* 2. TRUST STRIP */
+.trustStrip {
+  background-color: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+}
+
+.trustList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  list-style: none;
+}
+
+.trustItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--color-espresso);
+  letter-spacing: 0.02em;
+}
+
+.trustDot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-blush);
+  border-radius: var(--radius-pill);
+}
+
+/* SECTION HEADER UTILITY */
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.sectionPretitle {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--line-h2);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0;
+}
+
+.sectionCtaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-10);
+}
+
+/* 4. CATEGORY DISCOVERY — EDITORIAL DIVERSE GRID */
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-6);
+}
+
+.catCard {
+  position: relative;
+  border-radius: var(--radius-bento);
+  background-color: var(--color-bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-clay-card);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--duration-card) var(--ease-clay-squish),
+              box-shadow var(--duration-card) var(--ease-clay-settle);
+  overflow: visible;
+  padding-bottom: 6px;
+}
+
+.catCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-clay-card-hover);
+}
+
+.catImageWrapper {
+  position: relative;
+  margin: 12px 12px 0 12px;
+  border-radius: var(--radius-lg);
+  height: 220px;
+  background-color: var(--color-cream);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.catImage {
+  object-fit: cover;
+  transition: transform 600ms var(--ease-clay-settle);
+}
+
+.catCard:hover .catImage {
+  transform: scale(1.05);
+}
+
+.catContent {
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.catName {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform var(--duration-hover) var(--ease-clay-squish);
+}
+
+.catArrow {
+  opacity: 0.6;
+  font-size: 1.1em;
+  transition: transform var(--duration-hover) var(--ease-clay-squish), opacity var(--duration-hover) ease;
+}
+
+.catCard:hover .catName {
+  transform: translateX(3px);
+}
+
+.catCard:hover .catArrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.catCount {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+/* Varied Editorial Column Spans */
+.span7 {
+  grid-column: span 7;
+}
+
+.span5 {
+  grid-column: span 5;
+}
+
+.span4 {
+  grid-column: span 4;
+}
+
+.span4 .catImageWrapper {
+  height: 190px;
+}
+
+.span7 .catImageWrapper,
+.span5 .catImageWrapper {
+  height: 260px;
+}
+
+/* 6. EDITORIAL BRAND STORY */
+.storySection {
+  background-color: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.storyVisuals {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.storyImg1 {
+  position: relative;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.storyImg2 {
+  position: relative;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-top: var(--space-8);
+}
+
+.storyContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.storyHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--line-h2);
+  color: var(--color-espresso);
+}
+
+.storyText {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.storyHighlightBox {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-light-taupe);
+  margin-top: var(--space-4);
+}
+
+.statNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--color-warm-brown);
+  font-weight: 700;
+}
+
+.statLabel {
+  font-size: var(--text-caption);
+  color: var(--color-muted-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* 7. CUSTOM CREATION SECTION (ESPRESSO) */
+.customSection {
+  background-color: var(--color-espresso);
+  color: var(--color-ivory);
+  padding: var(--space-20) 0;
+  position: relative;
+}
+
+.customGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.customContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.customTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--line-h2);
+  color: var(--color-ivory);
+}
+
+.customText {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-peach);
+  max-width: 500px;
+}
+
+.processSteps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin: var(--space-2) 0;
+  position: relative;
+  padding-left: 8px;
+}
+
+.processSteps::before {
+  content: '';
+  position: absolute;
+  left: 21px;
+  top: 18px;
+  bottom: 24px;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-blush) 0px,
+    var(--color-blush) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  opacity: 0.45;
+  transition: opacity 300ms ease;
+}
+
+.stepItem {
+  display: flex;
+  gap: var(--space-4);
+  align-items: baseline;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--duration-micro) var(--ease-clay-squish);
+}
+
+.stepItem:hover {
+  transform: translateX(4px);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-blush);
+  font-weight: 700;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 246, 238, 0.08);
+  border-radius: 50%;
+  border: 1px solid rgba(232, 196, 184, 0.3);
+  transition: transform var(--duration-hover) var(--ease-clay-squish), background-color var(--duration-hover) ease;
+}
+
+.stepItem:hover .stepNumber {
+  transform: scale(1.15) rotate(-3deg);
+  background: var(--color-blush);
+  color: var(--color-espresso);
+}
+
+.stepTitle {
+  font-weight: 600;
+  color: var(--color-ivory);
+  margin-bottom: 2px;
+}
+
+.stepDesc {
+  font-size: var(--text-body-sm);
+  color: var(--color-light-taupe);
+  margin: 0;
+}
+
+.customCard {
+  position: relative;
+  background: rgba(255, 246, 238, 0.08);
+  border: 1px solid rgba(255, 246, 238, 0.22);
+  border-radius: var(--radius-bento);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-shadow: 
+    inset 1px 1px 3px rgba(255, 255, 255, 0.15),
+    0 16px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.customTimeline {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(255, 246, 238, 0.15);
+}
+
+/* 8. REVIEWS & 9. UGC SECTION (Authentic Placeholders) */
+.authenticNote {
+  background-color: var(--color-white);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.ugcGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.ugcTile {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-border);
+}
+
+.ugcOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(62, 42, 31, 0.5);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-ivory);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  transition: opacity var(--duration-hover) var(--ease-smooth);
+}
+
+.ugcTile:hover .ugcOverlay {
+  opacity: 1;
+}
+
+/* 10. INSTAGRAM */
+.instagramGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
+}
+
+.instaTile {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+.instaImg {
+  object-fit: cover;
+  transition: transform 500ms var(--ease-clay-settle);
+}
+
+.instaTile:hover .instaImg {
+  transform: scale(1.08);
+}
+
+/* 11. FINAL CTA */
+.finalCtaSection {
+  background: var(--color-peach);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-20) 0;
+  text-align: center;
+}
+
+.finalCtaContent {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.finalCtaHeadline {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--line-display);
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .heroComposition {
+    height: 420px;
+  }
+
+  .customGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .storyGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .span7, .span5, .span4 {
+    grid-column: span 6;
+  }
+
+  .instagramGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroHeadline {
+    font-size: var(--text-h1);
+  }
+
+  .heroComposition {
+    height: 340px;
+  }
+
+  .heroFloatingBadge {
+    left: 8px;
+    bottom: 8px;
+    padding: 8px 14px;
+  }
+
+  .heroFloatingAccent {
+    width: 90px;
+    height: 90px;
+    right: 0;
+  }
+
+  .trustList {
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  .span7, .span5, .span4 {
+    grid-column: span 12;
+  }
+
+  .span7 .catImageWrapper,
+  .span5 .catImageWrapper,
+  .span4 .catImageWrapper {
+    height: 200px;
+  }
+
+  .ugcGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .instagramGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

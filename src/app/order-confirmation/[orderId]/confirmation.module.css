@@ -1,0 +1,420 @@
+.confirmationPage {
+  background-color: var(--color-bg-primary);
+  min-height: calc(100vh - 72px);
+  padding: var(--space-12) 0 var(--space-24);
+}
+
+.confirmationCard {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-md);
+  animation: claySettle 500ms var(--ease-clay-settle) forwards;
+}
+
+@media (max-width: 640px) {
+  .confirmationCard {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Success Icon & Motion */
+.successHeader {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.iconWrapper {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-peach);
+  color: var(--color-espresso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(141, 90, 60, 0.18);
+  position: relative;
+  animation: iconPop 480ms var(--ease-clay-squish) forwards;
+}
+
+.sparkleAccent {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: var(--color-warm-brown);
+  animation: sparkleTwinkle 1.8s ease-in-out infinite alternate;
+}
+
+/* Natural Drawing Checkmark SVG */
+.checkmarkSvg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--color-espresso);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.checkmarkPath {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawCheck 420ms cubic-bezier(0.65, 0, 0.45, 1) 180ms forwards;
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes iconPop {
+  0% {
+    transform: scale(0.6) translateY(-10px);
+    opacity: 0;
+  }
+  65% {
+    transform: scale(1.08) translateY(2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes claySettle {
+  0% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkleTwinkle {
+  0% {
+    transform: scale(0.8) rotate(-10deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.15) rotate(15deg);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmationCard,
+  .iconWrapper,
+  .checkmarkPath,
+  .sparkleAccent {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+.orderTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+}
+
+.orderSubtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Reference Banner */
+.referenceBanner {
+  background: var(--color-cream);
+  border: 1px solid var(--color-light-taupe);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.refCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.refLabel {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.refValue {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+/* Delivery & Production Timeline Notice */
+.timelineCard {
+  background: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+.timelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  line-height: 1.45;
+}
+
+.timelineIcon {
+  color: var(--color-warm-brown);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Items List */
+.itemsSection {
+  margin-bottom: var(--space-8);
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.orderItemRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.orderItemRow:last-child {
+  border-bottom: none;
+}
+
+.itemThumb {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--color-espresso);
+}
+
+.itemMeta {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.itemPrice {
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  color: var(--color-espresso);
+  text-align: right;
+}
+
+/* Two Column Address & Payment Meta */
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding: var(--space-5);
+  background: var(--color-cream);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-light-taupe);
+}
+
+@media (max-width: 600px) {
+  .metaGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.metaColTitle {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-2);
+}
+
+.metaText {
+  font-size: var(--text-body-sm);
+  color: var(--color-espresso);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Totals Box */
+.totalsBox {
+  border-top: 1.5px dashed var(--color-light-taupe);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.totalsRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.grandTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.grandTotalLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-espresso);
+}
+
+.grandTotalAmount {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+/* CTA Navigation Actions */
+.ctaRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 540px;
+  flex-wrap: wrap;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex: 1 1 240px;
+  min-width: 220px;
+  height: 50px;
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.primaryCta:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-ivory);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex: 1 1 200px;
+  min-width: 180px;
+  height: 50px;
+  background: transparent;
+  color: var(--color-espresso);
+  border: 1.5px solid var(--color-espresso);
+  font-weight: 700;
+  font-size: var(--text-body);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.secondaryCta:hover {
+  background: var(--color-peach-light);
+  transform: translateY(-1px);
+}
+
+.secondaryNote {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+

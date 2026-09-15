@@ -1,0 +1,307 @@
+.successPage {
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  padding: var(--space-12) 0 var(--space-24);
+}
+
+.successCard {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-md);
+  animation: claySettle 480ms var(--ease-clay-settle) forwards;
+}
+
+@media (max-width: 640px) {
+  .successCard {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+}
+
+@keyframes claySettle {
+  0% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.headerWrap {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.iconCircle {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-peach);
+  color: var(--color-espresso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(141, 90, 60, 0.16);
+  position: relative;
+  animation: iconPop 480ms var(--ease-clay-squish) forwards;
+}
+
+@keyframes iconPop {
+  0% {
+    transform: scale(0.6) translateY(-10px);
+    opacity: 0;
+  }
+  65% {
+    transform: scale(1.08) translateY(2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.sparkleIcon {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: var(--color-warm-brown);
+}
+
+.checkmarkSvg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--color-espresso);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.checkmarkPath {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawCheck 420ms cubic-bezier(0.65, 0, 0.45, 1) 180ms forwards;
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .successCard,
+  .iconCircle,
+  .checkmarkPath {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+}
+
+.pageSubtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Reference Box */
+.referenceBox {
+  background: var(--color-cream);
+  border: 1px solid var(--color-light-taupe);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.refCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.refLabel {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.refValue {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+/* Summary Snapshot */
+.snapshotBox {
+  background: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.snapshotTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-3);
+}
+
+.snapshotList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.snapshotItem {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.snapshotItem strong {
+  color: var(--color-espresso);
+}
+
+/* Roadmap: What Happens Next */
+.roadmapSection {
+  margin-bottom: var(--space-8);
+}
+
+.roadmapHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.roadmapList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.roadmapStep {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.roadmapStep:last-child {
+  border-bottom: none;
+}
+
+.stepNumPill {
+  font-family: var(--font-display);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--color-warm-brown);
+  background: var(--color-peach);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepDetails {
+  flex: 1;
+}
+
+.stepLabel {
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin-bottom: 2px;
+}
+
+.stepDesc {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* CTA Navigation Buttons */
+.ctaButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.primaryCta:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-2px);
+  color: var(--color-ivory);
+  box-shadow: var(--shadow-md);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--color-espresso);
+  font-weight: 600;
+  font-size: var(--text-body);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-light-taupe);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.secondaryCta:hover {
+  border-color: var(--color-warm-brown);
+  background: rgba(246, 217, 200, 0.3);
+}

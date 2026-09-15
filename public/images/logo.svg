@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" width="240" height="48">
+  <!-- Claypresso Official Wordmark Lockup -->
+  <text x="0" y="32" font-family="'Fraunces', Georgia, serif" font-size="28" font-weight="600" letter-spacing="-0.03em" fill="#3E2A1F">
+    Claypresso
+  </text>
+  <!-- Tiny tactile clay dot accent -->
+  <circle cx="152" cy="18" r="3.5" fill="#E6A7A1" />
+  <text x="1" y="44" font-family="'DM Sans', -apple-system, sans-serif" font-size="8.5" font-weight="600" letter-spacing="0.18em" fill="#8D5A3C">
+    HANDMADE ACCESSORIES
+  </text>
+</svg>

@@ -1,0 +1,307 @@
+.faqPage {
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  padding-bottom: var(--space-24);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.heroSection {
+  padding: var(--space-16) 0 var(--space-10);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: var(--space-10) 0 var(--space-6);
+  }
+}
+
+.heroContent {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  background: var(--color-peach);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-4);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  color: var(--color-espresso);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 38px;
+  }
+}
+
+.heroSubtitle {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ==========================================================================
+   CONTROLS: SEARCH & CATEGORY FILTER PILLS
+   ========================================================================== */
+.controlsWrapper {
+  max-width: 800px;
+  margin: 0 auto var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.searchBox {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-warm-brown);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  height: 50px;
+  padding: 0 44px 0 46px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-micro) var(--ease-smooth);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-warm-brown);
+  box-shadow: 0 0 0 3px rgba(141, 90, 60, 0.15);
+}
+
+.clearBtn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+}
+
+.categoryPills {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.categoryPill {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-espresso);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-hover) var(--ease-smooth);
+}
+
+.categoryPill:hover {
+  border-color: var(--color-warm-brown);
+  background: rgba(246, 217, 200, 0.25);
+}
+
+.categoryPillActive {
+  border-color: var(--color-espresso);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+}
+
+/* ==========================================================================
+   ACCORDION LIST
+   ========================================================================== */
+.faqList {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.faqItem {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-hover) var(--ease-smooth),
+              box-shadow var(--duration-hover) var(--ease-smooth);
+}
+
+.faqItemOpen {
+  border-color: var(--color-warm-brown);
+  box-shadow: var(--shadow-md);
+}
+
+.faqButton {
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-espresso);
+  transition: background-color var(--duration-hover) var(--ease-smooth);
+}
+
+.faqButton:hover {
+  background-color: rgba(246, 217, 200, 0.15);
+}
+
+.iconCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream);
+  color: var(--color-warm-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--duration-button) var(--ease-clay-squish),
+              background-color var(--duration-hover) ease;
+}
+
+.faqItemOpen .iconCircle {
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  padding: 0 var(--space-6) var(--space-6);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  animation: answerFadeIn 240ms var(--ease-smooth) forwards;
+}
+
+@keyframes answerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.categoryTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-warm-brown);
+  background: var(--color-peach);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-2);
+}
+
+.emptyResults {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   STILL HAVE QUESTIONS FOOTER
+   ========================================================================== */
+.footerCallout {
+  max-width: 800px;
+  margin: var(--space-16) auto 0;
+  background: var(--color-cream);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.calloutText h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin-bottom: 4px;
+}
+
+.calloutText p {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.calloutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body-sm);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.calloutBtn:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-2px);
+  color: var(--color-ivory);
+}

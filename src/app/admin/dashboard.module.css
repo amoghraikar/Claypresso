@@ -1,0 +1,230 @@
+.dashboardGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Metrics Cards Row */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.metricCard {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.metricLabel {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.metricIcon {
+  color: var(--color-warm-brown);
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin-bottom: 4px;
+}
+
+.metricSubtext {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* Two-Column Section */
+.splitSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .splitSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panelCard {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+.viewAllLink {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-warm-brown);
+  text-decoration: none;
+}
+
+.viewAllLink:hover {
+  text-decoration: underline;
+}
+
+/* Table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.adminTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.adminTable th {
+  padding: 10px 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  background: #FAFAFA;
+}
+
+.adminTable td {
+  padding: 14px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-espresso);
+}
+
+.adminTable tr:hover td {
+  background: #FDFBF7;
+}
+
+/* Status Badges */
+.statusPill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statusPending {
+  background: #FFF7E6;
+  color: #D46B08;
+  border: 1px solid #FFE7BA;
+}
+
+.statusProcessing {
+  background: #E6F7FF;
+  color: #096DD9;
+  border: 1px solid #BAE7FF;
+}
+
+.statusShipped {
+  background: #F6FFED;
+  color: #389E0D;
+  border: 1px solid #D9F7BE;
+}
+
+.statusDelivered {
+  background: #E6FFFB;
+  color: #08979C;
+  border: 1px solid #B5F5EC;
+}
+
+.statusPaid {
+  background: #F6FFED;
+  color: #389E0D;
+}
+
+.statusUnpaid {
+  background: #FFF1F0;
+  color: #CF1322;
+}
+
+/* Low Stock Items List */
+.attentionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attentionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: #FAF8F5;
+  border: 1px solid var(--color-border);
+}
+
+.attentionLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stockAlertBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  background: #FFF1F0;
+  color: #CF1322;
+  border: 1px solid #FFA39E;
+}
+
+.actionBtnSmall {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-warm-brown);
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid var(--color-warm-brown);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) ease;
+}
+
+.actionBtnSmall:hover {
+  background: var(--color-warm-brown);
+  color: #fff;
+}

@@ -1,0 +1,421 @@
+.aboutPage {
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  padding-bottom: var(--space-24);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.heroSection {
+  padding: var(--space-16) 0 var(--space-12);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+}
+
+.heroContent {
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  background: var(--color-peach);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-4);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  line-height: var(--line-display-xl);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 42px;
+    line-height: 1.05;
+  }
+}
+
+.heroSubtitle {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto var(--space-8);
+}
+
+/* Featured Visual Mosaic */
+.featuredImageWrap {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto var(--space-16);
+  height: 440px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .featuredImageWrap {
+    height: 280px;
+    margin-bottom: var(--space-10);
+  }
+}
+
+.featuredImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   WHAT CLAYPRESSO MAKES
+   ========================================================================== */
+.sectionBlock {
+  padding: var(--space-12) 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto var(--space-10);
+}
+
+.sectionEyebrow {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-3);
+}
+
+.sectionDesc {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.productStoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 860px) {
+  .productStoryGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.storyCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--duration-card) var(--ease-clay-squish);
+}
+
+.storyCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.storyCardImageWrap {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  background: var(--color-cream);
+}
+
+.storyCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.storyCardContent {
+  padding: var(--space-6);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.storyCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.storyCardText {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   THE HANDMADE PROCESS
+   ========================================================================== */
+.processSection {
+  background: var(--color-cream);
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.processGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  .processGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .processGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.processCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.processStepNum {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-2);
+}
+
+.processCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.processCardText {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   WHY CUSTOM EXISTS BANNER
+   ========================================================================== */
+.customBanner {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  margin: var(--space-12) auto;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .customBanner {
+    grid-template-columns: 1fr;
+    padding: var(--space-6);
+  }
+}
+
+.customBannerImageWrap {
+  width: 100%;
+  height: 300px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.customBannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.customBannerTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+
+.customBannerText {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+/* ==========================================================================
+   PHILOSOPHY PILLARS
+   ========================================================================== */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.pillarCard {
+  background: var(--color-cream);
+  border: 1px solid var(--color-light-taupe);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.pillarIcon {
+  color: var(--color-warm-brown);
+  margin-bottom: var(--space-3);
+}
+
+.pillarTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.pillarText {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   FINAL CTA SECTION
+   ========================================================================== */
+.finalCtaSection {
+  padding: var(--space-16) 0 var(--space-8);
+  text-align: center;
+}
+
+.finalCtaTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-3);
+}
+
+.finalCtaSubtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto var(--space-6);
+}
+
+.ctaButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.primaryCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.primaryCtaBtn:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-ivory);
+}
+
+.secondaryCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--color-espresso);
+  font-weight: 600;
+  font-size: var(--text-body);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-light-taupe);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.secondaryCtaBtn:hover {
+  border-color: var(--color-warm-brown);
+  background: rgba(246, 217, 200, 0.3);
+}

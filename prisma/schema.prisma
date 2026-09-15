@@ -1,0 +1,362 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// 1. USER & AUTHENTICATION
+// -------------------------------------------------------------
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  role         String        @default("CUSTOMER") // "CUSTOMER" | "ADMIN"
+  name         String
+  phone        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  orders       Order[]
+  customOrders CustomOrder[]
+  reviews      Review[]
+  wishlist     Wishlist?
+
+  @@index([email])
+}
+
+// -------------------------------------------------------------
+// 2. CATEGORY & PRODUCT CATALOG
+// -------------------------------------------------------------
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  active      Boolean   @default(true)
+  sortOrder   Int       @default(0)
+
+  products    Product[]
+}
+
+model Product {
+  id             String           @id @default(cuid())
+  name           String
+  slug           String           @unique
+  description    String
+  categoryId     String
+  collection     String?          // e.g. "bestsellers", "new-arrivals", "gifts", "under-100", "under-250", "under-500"
+  price          Float
+  originalPrice  Float?
+  productionType String           @default("READY_MADE") // "READY_MADE" | "MADE_TO_ORDER" | "CUSTOM"
+  productionTime String           @default("Ready to ship")
+  customizable   Boolean          @default(false)
+  material       String           @default("Polymer Clay, Nickel-Free Hardware")
+  dimensions     String           @default("Varies")
+  status         String           @default("IN_STOCK") // "IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK"
+  stock          Int              @default(10)
+  badges         String           @default("") // comma-separated e.g. "bestseller,new"
+  weightGrams    Int              @default(50)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  category       Category         @relation(fields: [categoryId], references: [id])
+  images         ProductImage[]
+  variants       ProductVariant[]
+  inventories    Inventory[]
+  orderItems     OrderItem[]
+  reviews        Review[]
+  wishlistItems  WishlistItem[]
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([collection])
+  @@index([status])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  url       String
+  altText   String?
+  sortOrder Int      @default(0)
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+model ProductVariant {
+  id              String      @id @default(cuid())
+  productId       String
+  name            String      // e.g. "Pink / Gold Clasp"
+  priceAdjustment Float       @default(0)
+  stock           Int         @default(5)
+  sku             String?
+
+  product         Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  inventories     Inventory[]
+  orderItems      OrderItem[]
+
+  @@index([productId])
+}
+
+model Inventory {
+  id                String          @id @default(cuid())
+  productId         String
+  variantId         String?
+  stock             Int             @default(0)
+  lowStockThreshold Int             @default(3)
+  updatedAt         DateTime        @updatedAt
+
+  product           Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant           ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([variantId])
+}
+
+// -------------------------------------------------------------
+// 3. ORDERS & FULFILLMENT
+// -------------------------------------------------------------
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // e.g. "CLP-2026-0001"
+  userId          String?     // null for guest orders
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String      // JSON stringified address
+  subtotal        Float
+  shippingFee     Float       @default(0)
+  discount        Float       @default(0)
+  total           Float
+  paymentMethod   String      @default("UPI") // "UPI" | "CARD"
+  paymentStatus   String      @default("PENDING") // "PENDING" | "PAID" | "FAILED" | "REFUNDED"
+  orderStatus     String      @default("PENDING") // "PENDING" | "PROCESSING" | "IN_PRODUCTION" | "SHIPPED" | "DELIVERED" | "COMPLETED" | "CANCELLED"
+  
+  // Shipping fulfillment
+  courier         String?     // e.g. "India Post" | "DTDC" | "Blue Dart" | "Delhivery"
+  trackingNumber  String?
+  trackingUrl     String?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user            User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items           OrderItem[]
+  payments        Payment[]
+
+  @@index([orderNumber])
+  @@index([userId])
+  @@index([customerEmail])
+  @@index([orderStatus])
+}
+
+model OrderItem {
+  id                      String          @id @default(cuid())
+  orderId                 String
+  productId               String?
+  variantId               String?
+  productNameSnapshot     String
+  priceSnapshot           Float
+  quantity                Int
+  subtotal                Float
+  imageSnapshot           String
+  selectedVariantSnapshot String?         // JSON stringified or name
+  productionTypeSnapshot  String          @default("READY_MADE")
+
+  order                   Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product                 Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant                 ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  orderId           String
+  provider          String   @default("MOCK_UPI") // "MOCK_UPI" | "RAZORPAY" | "STRIPE"
+  providerPaymentId String?
+  amount            Float
+  currency          String   @default("INR")
+  status            String   @default("PENDING") // "PENDING" | "PAID" | "FAILED" | "REFUNDED"
+  metadata          String?  // JSON string
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([providerPaymentId])
+}
+
+// -------------------------------------------------------------
+// 4. CUSTOM ORDER & QUOTATIONS
+// -------------------------------------------------------------
+model CustomOrder {
+  id                     String        @id @default(cuid())
+  referenceNumber        String        @unique // e.g. "CP-CUSTOM-1001"
+  userId                 String?
+  name                   String
+  email                  String
+  phone                  String
+  category               String
+  customCategoryDetails  String?
+  description            String
+  preferredColors        String?
+  theme                  String?
+  textToInclude          String?
+  quantity               Int           @default(1)
+  approximateSize        String?
+  additionalInstructions String?
+  referenceImages        String        @default("[]") // JSON stringified array of images
+  status                 String        @default("NEW") // "NEW" | "REVIEWING" | "QUOTED" | "APPROVED" | "PAYMENT_PENDING" | "PAID" | "IN_PRODUCTION" | "SHIPPED" | "COMPLETED" | "CANCELLED"
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  user                   User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  quotes                 CustomQuote[]
+
+  @@index([referenceNumber])
+  @@index([userId])
+  @@index([email])
+  @@index([status])
+}
+
+model CustomQuote {
+  id             String      @id @default(cuid())
+  customOrderId  String
+  price          Float
+  productionDays Int         @default(25)
+  notes          String?
+  expiresAt      DateTime
+  status         String      @default("PENDING") // "PENDING" | "ACCEPTED" | "REJECTED" | "EXPIRED"
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  customOrder    CustomOrder @relation(fields: [customOrderId], references: [id], onDelete: Cascade)
+
+  @@index([customOrderId])
+}
+
+// -------------------------------------------------------------
+// 5. REVIEWS & COMMUNITY
+// -------------------------------------------------------------
+model Review {
+  id               String   @id @default(cuid())
+  productId        String
+  userId           String?
+  orderId          String?
+  authorName       String
+  rating           Int      @default(5)
+  title            String?
+  content          String
+  verifiedPurchase Boolean  @default(false)
+  status           String   @default("APPROVED") // "PENDING" | "APPROVED" | "REJECTED"
+  createdAt        DateTime @default(now())
+
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([productId])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 6. WISHLIST
+// -------------------------------------------------------------
+model Wishlist {
+  id        String         @id @default(cuid())
+  userId    String         @unique
+  createdAt DateTime       @default(now())
+
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WishlistItem[]
+
+  @@index([userId])
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  wishlistId String
+  productId  String
+  createdAt  DateTime @default(now())
+
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, productId])
+  @@index([wishlistId])
+}
+
+// -------------------------------------------------------------
+// 7. DISCOUNTS & SITE SETTINGS
+// -------------------------------------------------------------
+model Discount {
+  id                String    @id @default(cuid())
+  code              String    @unique
+  type              String    @default("PERCENTAGE") // "PERCENTAGE" | "FIXED"
+  value             Float     // e.g. 10 for 10% or 50 for ₹50
+  minimumOrderValue Float     @default(0)
+  maximumDiscount   Float?
+  startsAt          DateTime?
+  expiresAt         DateTime?
+  usageLimit        Int?
+  usedCount         Int       @default(0)
+  active            Boolean   @default(true)
+
+  @@index([code])
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
+
+// -------------------------------------------------------------
+// 8. AUDIT LOGGING
+// -------------------------------------------------------------
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  userName  String?
+  action    String   // e.g. "UPDATE_ORDER_STATUS", "ADJUST_INVENTORY", "UPDATE_PRODUCT", "CREATE_QUOTE", "MODERATE_REVIEW", "UPDATE_SETTINGS"
+  entity    String   // e.g. "Order", "Product", "Inventory", "CustomOrder", "Review", "Discount", "Setting"
+  entityId  String
+  details   String?  // JSON string
+  createdAt DateTime @default(now())
+
+  @@index([entity])
+  @@index([entityId])
+  @@index([createdAt])
+}
+
+// -------------------------------------------------------------
+// 9. WEBHOOK IDEMPOTENCY
+// -------------------------------------------------------------
+model WebhookEvent {
+  id          String    @id @default(cuid())
+  eventId     String    @unique // provider event ID e.g. "evt_12345"
+  provider    String    // e.g. "RAZORPAY"
+  eventType   String    // e.g. "payment.captured"
+  payload     String    // JSON stringified payload
+  processed   Boolean   @default(false)
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([eventId])
+  @@index([provider])
+}
+

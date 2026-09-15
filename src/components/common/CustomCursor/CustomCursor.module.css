@@ -1,0 +1,154 @@
+.cursorContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999999;
+  overflow: hidden;
+  contain: layout style size;
+}
+
+/* Primary Dot (Direct follower) */
+.cursorDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  margin-left: -3px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-espresso);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.15s var(--ease-clay-squish);
+  will-change: transform;
+}
+
+/* Outer Soft Ring (Inertial soft follower) */
+.cursorRing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(141, 90, 60, 0.45);
+  background-color: rgba(232, 165, 152, 0.08);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: width 0.24s var(--ease-clay-squish),
+              height 0.24s var(--ease-clay-squish),
+              margin 0.24s var(--ease-clay-squish),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              border-radius 0.24s ease,
+              opacity 0.2s ease;
+  will-change: transform, width, height;
+}
+
+/* Cursor Contextual Variants */
+.linkVariant {
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  margin-left: -22px;
+  background-color: rgba(141, 90, 60, 0.14);
+  border-color: rgba(141, 90, 60, 0.6);
+}
+
+.buttonVariant {
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  margin-left: -13px;
+  background-color: rgba(62, 42, 31, 0.18);
+  border-color: var(--color-espresso);
+  transform: scale(0.92);
+}
+
+.productVariant {
+  width: 66px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -33px;
+  border-radius: 100px;
+  background-color: var(--color-warm-brown);
+  border: 1px solid var(--color-terracotta);
+  box-shadow: 0 4px 12px rgba(62, 42, 31, 0.18);
+}
+
+.dragVariant {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(212, 163, 115, 0.2);
+  border: 1.5px dashed var(--color-warm-brown);
+}
+
+.pressed {
+  transform: scale(0.82) !important;
+}
+
+/* Contextual Label (e.g. "VIEW") */
+.cursorLabel {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFF6EE;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Micro Trail Particles */
+.trailParticle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.25s ease;
+}
+
+.trail0 {
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  margin-left: -2.5px;
+  background-color: #E8A598;
+}
+
+.trail1 {
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  margin-left: -2px;
+  background-color: #D4A373;
+}
+
+.trail2 {
+  width: 3px;
+  height: 3px;
+  margin-top: -1.5px;
+  margin-left: -1.5px;
+  background-color: #8D5A3C;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursorContainer {
+    display: none !important;
+  }
+}

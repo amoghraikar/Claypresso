@@ -1,0 +1,482 @@
+.accountPage {
+  background-color: var(--color-bg-primary);
+  min-height: calc(100vh - 72px);
+  padding: var(--space-10) 0 var(--space-24);
+}
+
+/* ==========================================================================
+   AUTHENTICATED ACCOUNT DASHBOARD
+   ========================================================================== */
+.accountLayout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .accountLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar Navigation */
+.sidebarCard {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.userGreeting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.avatarCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: var(--color-peach);
+  color: var(--color-espresso);
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.greetingText h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+.greetingText p {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--color-espresso);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-hover) var(--ease-smooth);
+}
+
+.navItem:hover {
+  background: var(--color-cream);
+  color: var(--color-warm-brown);
+}
+
+.navItemActive {
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+}
+
+.navItemActive:hover {
+  background: var(--color-deep-brown);
+  color: var(--color-ivory);
+}
+
+.navBadge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-peach);
+  color: var(--color-espresso);
+}
+
+.logoutBtn {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+}
+
+.logoutBtn:hover {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+/* Main Content Panel */
+.contentPanel {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+  .contentPanel {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+/* Order List Cards */
+.ordersList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.orderCard {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-white);
+  transition: all var(--duration-hover) var(--ease-smooth);
+}
+
+.orderCard:hover {
+  border-color: var(--color-warm-brown);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.orderCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.orderRef {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+.orderDate {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.statusBadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.statusPlaced {
+  background: var(--color-cream);
+  color: var(--color-espresso);
+  border: 1px solid var(--color-light-taupe);
+}
+
+.statusProcessing {
+  background: var(--color-peach);
+  color: var(--color-espresso);
+}
+
+.statusProduction {
+  background: rgba(230, 167, 161, 0.3);
+  color: #8c3b3b;
+  border: 1px solid var(--color-blush);
+}
+
+.statusShipped {
+  background: #e6f0fa;
+  color: #1e4a7a;
+}
+
+.statusDelivered {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border: 1px solid rgba(85, 122, 97, 0.3);
+}
+
+.orderItemsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+}
+
+.thumbWrapper {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.orderThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orderCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-3);
+  font-size: var(--text-body-sm);
+}
+
+.orderTotal {
+  font-weight: 700;
+  color: var(--color-espresso);
+}
+
+.viewOrderLink {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--color-warm-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.viewOrderLink:hover {
+  color: var(--color-espresso);
+}
+
+/* ==========================================================================
+   GUEST ACCOUNT LANDING
+   ========================================================================== */
+.guestContainer {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guestCard {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-8);
+}
+
+.guestIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-pill);
+  background: var(--color-peach);
+  color: var(--color-warm-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+}
+
+.guestTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-espresso);
+  margin-bottom: var(--space-2);
+}
+
+.guestSubtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  max-width: 480px;
+  margin: 0 auto var(--space-8);
+}
+
+.guestButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.primaryAuthBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.primaryAuthBtn:hover {
+  background: var(--color-deep-brown);
+  transform: translateY(-2px);
+  color: var(--color-ivory);
+  box-shadow: var(--shadow-md);
+}
+
+.secondaryAuthBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--color-espresso);
+  font-weight: 600;
+  font-size: var(--text-body);
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-light-taupe);
+  text-decoration: none;
+  transition: all var(--duration-button) var(--ease-smooth);
+}
+
+.secondaryAuthBtn:hover {
+  border-color: var(--color-warm-brown);
+  background: rgba(246, 217, 200, 0.3);
+}
+
+/* Guest Track Order Banner */
+.guestTrackBanner {
+  background: var(--color-cream);
+  border: 1.5px solid var(--color-light-taupe);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.trackBannerContent {
+  max-width: 420px;
+}
+
+.trackBannerHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin-bottom: 2px;
+}
+
+.trackBannerText {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ==========================================================================
+   AUTH FORMS (LOGIN & REGISTER)
+   ========================================================================== */
+.authContainer {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.authCard {
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.authTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--color-espresso);
+  margin-bottom: 4px;
+}
+
+.authSubtitle {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.authFooter {
+  text-align: center;
+  margin-top: var(--space-6);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.authLink {
+  color: var(--color-warm-brown);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.authLink:hover {
+  color: var(--color-espresso);
+}
