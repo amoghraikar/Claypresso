@@ -152,11 +152,6 @@ export const Footer: React.FC = () => {
                   Custom Orders
                 </Link>
               </li>
-              <li>
-                <Link href="/account/login?mode=admin" className={styles.link} style={{ color: 'var(--color-peach)', fontWeight: 600 }}>
-                  ✦ Studio Owner Portal
-                </Link>
-              </li>
             </ul>
           </div>
 

@@ -40,12 +40,12 @@ export function middleware(req: NextRequest) {
     });
   }
 
-  // 2. Admin Route Protection Check
-  if (pathname.startsWith('/admin')) {
+  // 2. Dedicated Admin Portal Route Protection Check
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const token = req.cookies.get(AUTH_COOKIE_NAME)?.value;
     if (!token) {
-      const loginUrl = new URL('/account/login', req.url);
-      loginUrl.searchParams.set('redirect', pathname);
+      const loginUrl = new URL('/admin/login', req.url);
+      loginUrl.searchParams.set('returnUrl', pathname);
       return NextResponse.redirect(loginUrl);
     }
   }

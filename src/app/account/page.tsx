@@ -169,64 +169,6 @@ export default function AccountPage() {
               </div>
             </div>
 
-            {/* Admin Fast-Track Panel */}
-            {user.role === 'ADMIN' && (
-              <div
-                style={{
-                  backgroundColor: 'var(--color-cream-soft)',
-                  border: '1.5px dashed var(--color-warm-brown)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '12px',
-                  marginBottom: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 8,
-                }}
-              >
-                <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-warm-brown)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  ✦ Studio Operations
-                </div>
-                <Link
-                  href="/admin/products/new"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    backgroundColor: 'var(--color-espresso)',
-                    color: '#FFFFFF',
-                    padding: '8px 12px',
-                    borderRadius: 'var(--radius-pill)',
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    textDecoration: 'none',
-                    boxShadow: 'var(--shadow-clay-button)',
-                  }}
-                >
-                  <Plus size={14} />
-                  <span>+ Add New Piece</span>
-                </Link>
-                <Link
-                  href="/admin"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    backgroundColor: '#FFFFFF',
-                    color: 'var(--color-espresso)',
-                    border: '1px solid var(--color-border)',
-                    padding: '7px 12px',
-                    borderRadius: 'var(--radius-pill)',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                  }}
-                >
-                  <LayoutDashboard size={14} />
-                  <span>Admin Dashboard</span>
-                </Link>
-              </div>
-            )}
-
             <nav className={styles.navMenu} aria-label="Account Navigation">
               <button
                 type="button"
@@ -272,74 +214,7 @@ export default function AccountPage() {
 
           {/* Main Content Area */}
           <main className={styles.contentPanel}>
-            {/* Top Admin Banner */}
-            {user.role === 'ADMIN' && (
-              <div
-                style={{
-                  backgroundColor: '#FFFBE6',
-                  border: '1.5px solid #FFE58F',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: '16px 20px',
-                  marginBottom: '24px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: 12,
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#D46B08' }}>
-                    👑 Studio Administrator Active
-                  </div>
-                  <div style={{ fontSize: '12px', color: 'var(--color-muted-brown)' }}>
-                    Add new pieces, update pricing & stock, and fulfill orders.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <Link
-                    href="/admin/products/new"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      backgroundColor: 'var(--color-espresso)',
-                      color: '#FFFFFF',
-                      padding: '8px 16px',
-                      borderRadius: 'var(--radius-pill)',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      textDecoration: 'none',
-                      boxShadow: 'var(--shadow-clay-button)',
-                    }}
-                  >
-                    <Plus size={15} />
-                    <span>+ Add New Piece</span>
-                  </Link>
-
-                  <Link
-                    href="/admin"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      backgroundColor: '#FFFFFF',
-                      color: 'var(--color-espresso)',
-                      border: '1px solid var(--color-border)',
-                      padding: '8px 14px',
-                      borderRadius: 'var(--radius-pill)',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <LayoutDashboard size={15} />
-                    <span>Admin Panel</span>
-                  </Link>
-                </div>
-              </div>
-            )}
+            {/* TAB 1: ORDERS */}
 
             {/* TAB 1: ORDERS */}
             {activeTab === 'orders' && (

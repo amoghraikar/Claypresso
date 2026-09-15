@@ -20,6 +20,7 @@ import {
   ExternalLink,
   ShieldAlert,
   ChevronRight,
+  Plus,
 } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { apiClient } from '@/services/apiClient';
@@ -61,6 +62,11 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     async function verifyAuth() {
+      if (pathname === '/admin/login') {
+        setLoading(false);
+        return;
+      }
+
       // 1. Check client session
       const user = authService.getCurrentUser();
       if (!user) {
@@ -124,8 +130,13 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   const handleLogout = async () => {
     await authService.logout();
-    router.push('/account/login');
+    router.push('/admin/login');
   };
+
+  // Dedicated admin login page renders standalone without shell layout
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   if (loading) {
     return (
@@ -150,7 +161,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             Claypresso Studio Operations requires verified administrator authorization. Normal customer accounts cannot view operations data.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <Link href="/account/login?returnUrl=/admin" className={styles.deniedBtn}>
+            <Link href="/admin/login" className={styles.deniedBtn}>
               LOG IN AS ADMINISTRATOR →
             </Link>
             <Link
@@ -188,6 +199,32 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           >
             <X size={20} />
           </button>
+        </div>
+
+        {/* Prominent "+ Add New Product" Action Button */}
+        <div style={{ padding: '0 16px 16px' }}>
+          <Link
+            href="/admin/products/new"
+            onClick={() => setSidebarOpen(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              backgroundColor: '#EB7A66',
+              color: '#FFFFFF',
+              padding: '12px 18px',
+              borderRadius: '999px',
+              fontSize: '13px',
+              fontWeight: 800,
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(235, 122, 102, 0.35)',
+              transition: 'transform 150ms ease',
+            }}
+          >
+            <Plus size={16} strokeWidth={2.5} />
+            <span>+ Add New Product</span>
+          </Link>
         </div>
 
         <nav className={styles.navSection} aria-label="Admin Navigation">
@@ -236,6 +273,27 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           </div>
 
           <div className={styles.topBarRight}>
+            {/* Quick Add Product Button in Header */}
+            <Link
+              href="/admin/products/new"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                backgroundColor: 'var(--color-espresso)',
+                color: '#FFFFFF',
+                padding: '8px 14px',
+                borderRadius: 'var(--radius-pill)',
+                fontSize: '12px',
+                fontWeight: 800,
+                textDecoration: 'none',
+                boxShadow: 'var(--shadow-sm)',
+              }}
+            >
+              <Plus size={14} />
+              <span>+ Add Piece</span>
+            </Link>
+
             <button
               type="button"
               className={styles.quickSearchBtn}
@@ -243,7 +301,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               aria-label="Quick search (Cmd+K)"
             >
               <Search size={14} />
-              <span>Search orders, products, requests...</span>
+              <span>Search...</span>
               <span className={styles.searchKbd}>⌘K</span>
             </button>
 

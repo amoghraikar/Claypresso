@@ -4,16 +4,12 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { 
-  Sparkles, 
   ArrowRight, 
   Lock, 
   Mail, 
   AlertCircle, 
   CheckCircle2, 
-  ShieldCheck, 
-  Plus, 
-  LayoutDashboard,
-  ExternalLink
+  Sparkles
 } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { User as UserType } from '@/types/auth';
@@ -22,9 +18,7 @@ import styles from '../account.module.css';
 function LoginFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialMode = searchParams.get('mode') === 'admin' ? 'admin' : 'customer';
 
-  const [activeTab, setActiveTab] = useState<'customer' | 'admin'>(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -39,19 +33,10 @@ function LoginFormContent() {
   useEffect(() => {
     const user = authService.getCurrentUser();
     setCurrentUser(user);
-    if (searchParams.get('mode') === 'admin') {
-      setActiveTab('admin');
-      setEmail('admin@claypresso.com');
-      setPassword('AdminPassword123!');
+    if (user) {
+      router.push('/account');
     }
-  }, [searchParams]);
-
-  const handleQuickFillAdmin = () => {
-    setActiveTab('admin');
-    setEmail('admin@claypresso.com');
-    setPassword('AdminPassword123!');
-    setError(null);
-  };
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,15 +57,10 @@ function LoginFormContent() {
     setLoading(false);
 
     if (res.success && res.user) {
-      // If user is Admin, guide them directly to the Admin Studio Portal!
-      if (res.user.role === 'ADMIN' || activeTab === 'admin') {
-        const redirectUrl = searchParams.get('redirect') || '/admin';
-        router.push(redirectUrl);
-      } else {
-        router.push('/account');
-      }
+      const redirectUrl = searchParams.get('redirect') || '/account';
+      router.push(redirectUrl);
     } else {
-      setError(res.error || 'Login failed. Please check your credentials.');
+      setError(res.error || 'Invalid email or password. Please try again.');
     }
   };
 
@@ -95,90 +75,23 @@ function LoginFormContent() {
     setForgotSent(true);
   };
 
-  // If already logged in as Admin, show quick jump actions
-  if (currentUser && currentUser.role === 'ADMIN') {
+  if (currentUser) {
     return (
-      <div className={styles.authContainer} style={{ maxWidth: 520 }}>
-        <div
-          className={styles.authCard}
-          style={{
-            position: 'relative',
-            boxShadow: 'var(--shadow-clay-card)',
-            border: '2px solid var(--color-warm-brown)',
-            backgroundColor: '#FFFFFF',
-            padding: '36px 28px',
-          }}
-        >
-          <div className="washi-tape washi-tape-top-right washi-tape-peach" aria-hidden="true" />
-          
-          <div style={{ textAlign: 'center', marginBottom: 20 }}>
-            <div className="stamp-seal" style={{ margin: '0 auto 12px' }} aria-hidden="true">
-              <span>Claypresso Studio</span>
-              <span>Admin Verified • BLR</span>
-            </div>
-
-            <h1 className={styles.authTitle} style={{ fontSize: '26px' }}>
-              Welcome Back, Studio Owner!
-            </h1>
-            <p className={styles.authSubtitle}>
-              You are currently authenticated with Full Administrator privileges ({currentUser.email}).
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 24 }}>
-            <Link
-              href="/admin/products/new"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                backgroundColor: 'var(--color-espresso)',
-                color: '#FFFFFF',
-                padding: '14px 20px',
-                borderRadius: 'var(--radius-pill)',
-                fontWeight: 800,
-                fontSize: '15px',
-                textDecoration: 'none',
-                boxShadow: 'var(--shadow-clay-button)',
-              }}
-            >
-              <Plus size={18} />
-              <span>+ Add New Product to Store</span>
-            </Link>
-
-            <Link
-              href="/admin"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                backgroundColor: 'var(--color-cream)',
-                color: 'var(--color-espresso)',
-                border: '1.5px solid var(--color-border)',
-                padding: '12px 20px',
-                borderRadius: 'var(--radius-pill)',
-                fontWeight: 700,
-                fontSize: '14px',
-                textDecoration: 'none',
-              }}
-            >
-              <LayoutDashboard size={16} />
-              <span>Open Studio Operations Dashboard</span>
-            </Link>
-
+      <div className={styles.authContainer}>
+        <div className={styles.authCard}>
+          <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
+          <h1 className={styles.authTitle}>Already Signed In</h1>
+          <p className={styles.authSubtitle}>
+            You are signed in as {currentUser.email}.
+          </p>
+          <div style={{ marginTop: 24 }}>
             <Link
               href="/account"
-              style={{
-                textAlign: 'center',
-                fontSize: '13px',
-                color: 'var(--color-muted-brown)',
-                marginTop: 8,
-                textDecoration: 'underline',
-              }}
+              className={styles.authSubmitBtn}
+              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
             >
-              View Customer Profile & Past Orders →
+              <span>Go to My Account</span>
+              <ArrowRight size={16} />
             </Link>
           </div>
         </div>
@@ -187,306 +100,199 @@ function LoginFormContent() {
   }
 
   return (
-    <div className={styles.authContainer} style={{ maxWidth: 480 }}>
-      {/* Editorial Claymorphic Card with Scrapbook Washi Tape */}
-      <div
-        className={styles.authCard}
-        style={{
-          position: 'relative',
-          boxShadow: 'var(--shadow-clay-card)',
-          borderRadius: 'var(--radius-xl)',
-          backgroundColor: '#FFFFFF',
-          padding: '36px 32px',
-          border: '1px solid var(--color-border-warm)',
-        }}
-      >
+    <div className={styles.authContainer}>
+      <div className={styles.authCard}>
+        {/* Decorative Washi Tape Accent */}
         <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
 
-        {/* Tab Switcher: Customer vs Studio Owner */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            background: 'var(--color-cream-soft)',
-            padding: '4px',
-            borderRadius: 'var(--radius-pill)',
-            marginBottom: '24px',
-            border: '1px solid var(--color-border)',
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              setActiveTab('customer');
-              setError(null);
-            }}
-            style={{
-              padding: '8px 12px',
-              borderRadius: 'var(--radius-pill)',
-              border: 'none',
-              background: activeTab === 'customer' ? 'var(--color-espresso)' : 'transparent',
-              color: activeTab === 'customer' ? '#FFFFFF' : 'var(--color-text-secondary)',
-              fontWeight: 700,
-              fontSize: '13px',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            Customer
-          </button>
+        <div style={{ textAlign: 'center', marginBottom: 28 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 8, color: 'var(--color-warm-brown)', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <Sparkles size={14} />
+            <span>Claypresso Club</span>
+          </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              setActiveTab('admin');
-              setError(null);
-            }}
-            style={{
-              padding: '8px 12px',
-              borderRadius: 'var(--radius-pill)',
-              border: 'none',
-              background: activeTab === 'admin' ? 'var(--color-espresso)' : 'transparent',
-              color: activeTab === 'admin' ? '#FFFFFF' : 'var(--color-text-secondary)',
-              fontWeight: 700,
-              fontSize: '13px',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 5,
-            }}
-          >
-            <span>✦ Studio Owner</span>
-          </button>
-        </div>
-
-        {/* Header Branding */}
-        <div className={styles.authHeader} style={{ marginBottom: 20 }}>
-          <h1 className={styles.authTitle} style={{ fontSize: '28px', letterSpacing: '-0.02em' }}>
-            {activeTab === 'admin' ? 'Studio Owner Sign In' : 'Welcome Back'}
+          <h1 className={styles.authTitle}>
+            Welcome back.
           </h1>
           <p className={styles.authSubtitle}>
-            {activeTab === 'admin'
-              ? 'Access studio catalog, add new pieces, and manage commissions.'
-              : 'Access your orders, tracked deliveries, and wishlist items.'}
+            Sign in to track orders, manage custom commissions, and save your favorite handmade pieces.
           </p>
         </div>
 
-        {/* Admin 1-Click Fill Helper Banner */}
-        {activeTab === 'admin' && (
-          <div
-            style={{
-              backgroundColor: 'var(--color-peach-light)',
-              border: '1px dashed var(--color-warm-brown)',
-              borderRadius: 'var(--radius-md)',
-              padding: '12px 14px',
-              marginBottom: '18px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 8,
-            }}
-          >
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-espresso)' }}>
-                Studio Owner Account
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--color-muted-brown)' }}>
-                Tap to auto-fill credentials
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleQuickFillAdmin}
-              style={{
-                backgroundColor: 'var(--color-warm-brown)',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: 'var(--radius-pill)',
-                padding: '6px 12px',
-                fontSize: '11px',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
-            >
-              Fill Credentials
-            </button>
-          </div>
-        )}
-
+        {/* Error Notification */}
         {error && (
-          <div
-            style={{
-              background: 'var(--color-error-bg)',
-              color: 'var(--color-error)',
-              padding: '12px 14px',
-              borderRadius: 'var(--radius-md)',
-              marginBottom: '16px',
-              fontSize: '13px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-            }}
-            role="alert"
-          >
+          <div className={styles.authErrorBanner}>
             <AlertCircle size={16} />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Forgot Password Accordion */}
+        {/* Forgot Password Modal / View */}
         {showForgot ? (
-          <form onSubmit={handleForgotSubmit} className={styles.authForm}>
+          <div>
             {forgotSent ? (
-              <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                <CheckCircle2 size={36} color="var(--color-warm-brown)" style={{ margin: '0 auto 8px' }} />
-                <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-espresso)', margin: '0 0 4px' }}>
-                  Reset Link Sent
-                </h3>
-                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', margin: '0 0 16px' }}>
-                  If an account exists for {forgotEmail}, instructions were dispatched.
+              <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                <div style={{ width: 44, height: 44, borderRadius: '999px', background: '#EDF3EF', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--color-success)' }}>
+                  <CheckCircle2 size={24} />
+                </div>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: 'var(--color-espresso)', marginBottom: 8 }}>
+                  Reset link sent!
+                </h2>
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.6, marginBottom: 20 }}>
+                  If an account exists for <strong>{forgotEmail}</strong>, we have dispatched instructions to reset your password.
                 </p>
                 <button
                   type="button"
                   onClick={() => {
                     setShowForgot(false);
                     setForgotSent(false);
+                    setError(null);
                   }}
-                  className={styles.authLink}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                  className={styles.authSubmitBtn}
                 >
-                  ← Return to Log In
+                  Return to Sign In
                 </button>
               </div>
             ) : (
-              <>
-                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', margin: '0 0 12px' }}>
-                  Enter your email address to receive a secure password reset link.
-                </p>
-                <div>
-                  <label htmlFor="forgot-email" className={styles.formLabel}>
-                    Email Address
+              <form onSubmit={handleForgotSubmit}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="forgot-email" className={styles.label}>
+                    Your Account Email
                   </label>
-                  <input
-                    id="forgot-email"
-                    type="email"
-                    value={forgotEmail}
-                    onChange={(e) => setForgotEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className={styles.formInput}
-                    required
-                  />
+                  <div className={styles.inputIconWrapper}>
+                    <Mail size={16} className={styles.fieldIcon} />
+                    <input
+                      id="forgot-email"
+                      type="email"
+                      required
+                      placeholder="name@example.com"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      className={styles.inputWithIcon}
+                      autoFocus
+                    />
+                  </div>
                 </div>
-                <button
-                  type="submit"
-                  className={styles.submitBtn}
-                  style={{ backgroundColor: 'var(--color-espresso)', boxShadow: 'var(--shadow-clay-button)' }}
-                >
-                  Send Reset Link
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowForgot(false)}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', color: 'var(--color-text-secondary)' }}
-                >
-                  Cancel
-                </button>
-              </>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 24 }}>
+                  <button type="submit" className={styles.authSubmitBtn}>
+                    Send Reset Link
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowForgot(false);
+                      setError(null);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '13px',
+                      color: 'var(--color-text-muted)',
+                      cursor: 'pointer',
+                      padding: 8,
+                    }}
+                  >
+                    Cancel and Return
+                  </button>
+                </div>
+              </form>
             )}
-          </form>
+          </div>
         ) : (
-          /* Main Login Form */
           <form onSubmit={handleSubmit} className={styles.authForm}>
-            <div>
-              <label htmlFor="login-email" className={styles.formLabel}>
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.label}>
                 Email Address
               </label>
-              <input
-                id="login-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={activeTab === 'admin' ? 'admin@claypresso.com' : 'you@example.com'}
-                className={styles.formInput}
-                autoComplete="email"
-                required
-              />
+              <div className={styles.inputIconWrapper}>
+                <Mail size={16} className={styles.fieldIcon} />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.inputWithIcon}
+                  autoComplete="email"
+                />
+              </div>
             </div>
 
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                <label htmlFor="login-password" className={styles.formLabel} style={{ marginBottom: 0 }}>
+            <div className={styles.formGroup}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label htmlFor="password" className={styles.label}>
                   Password
                 </label>
                 <button
                   type="button"
-                  onClick={() => setShowForgot(true)}
+                  onClick={() => {
+                    setShowForgot(true);
+                    setForgotEmail(email);
+                    setError(null);
+                  }}
                   style={{
                     background: 'none',
                     border: 'none',
-                    fontSize: '11px',
+                    fontSize: '12px',
+                    fontWeight: 600,
                     color: 'var(--color-warm-brown)',
                     cursor: 'pointer',
-                    fontWeight: 600,
+                    padding: 0,
                   }}
                 >
-                  Forgot?
+                  Forgot password?
                 </button>
               </div>
-              <input
-                id="login-password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className={styles.formInput}
-                autoComplete="current-password"
-                required
-              />
+              <div className={styles.inputIconWrapper}>
+                <Lock size={16} className={styles.fieldIcon} />
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles.inputWithIcon}
+                  autoComplete="current-password"
+                />
+              </div>
             </div>
 
             <button
-              id="login-submit-btn"
               type="submit"
               disabled={loading}
-              className={styles.submitBtn}
-              style={{
-                backgroundColor: 'var(--color-espresso)',
-                boxShadow: 'var(--shadow-clay-button)',
-                marginTop: '8px',
-              }}
+              className={styles.authSubmitBtn}
+              style={{ marginTop: 12 }}
             >
-              <span>{loading ? 'Authenticating...' : activeTab === 'admin' ? 'Enter Studio Admin →' : 'Sign In'}</span>
-              <ArrowRight size={16} />
+              {loading ? (
+                <span>Signing in...</span>
+              ) : (
+                <>
+                  <span>Sign In</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
             </button>
           </form>
         )}
 
-        {/* Footer Navigation */}
-        <div className={styles.authFooter}>
-          {activeTab === 'admin' ? (
-            <div>
-              <p style={{ margin: '0 0 6px', fontSize: '12px' }}>
-                Need help with studio credentials? Check your studio configuration.
-              </p>
-              <button
-                type="button"
-                onClick={() => setActiveTab('customer')}
-                style={{ background: 'none', border: 'none', color: 'var(--color-warm-brown)', fontWeight: 700, cursor: 'pointer', fontSize: '13px' }}
-              >
-                Switch to Customer Login
-              </button>
-            </div>
-          ) : (
-            <div>
-              <span>New to Claypresso? </span>
-              <Link href="/account/register" className={styles.authLink}>
-                Create an account
-              </Link>
-            </div>
-          )}
+        {/* Create Account Link */}
+        <div style={{ marginTop: 24, textAlign: 'center', borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+          <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', margin: 0 }}>
+            Don&apos;t have an account yet?{' '}
+            <Link
+              href="/account/register"
+              style={{
+                fontWeight: 700,
+                color: 'var(--color-warm-brown)',
+                textDecoration: 'none',
+              }}
+            >
+              Create an account →
+            </Link>
+          </p>
         </div>
       </div>
     </div>
@@ -495,12 +301,16 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className={styles.accountPage}>
-      <div className="container">
-        <Suspense fallback={<div style={{ padding: '60px', textAlign: 'center' }}>Loading authentication...</div>}>
-          <LoginFormContent />
-        </Suspense>
-      </div>
-    </div>
+    <Suspense
+      fallback={
+        <div className={styles.authContainer}>
+          <div className={styles.authCard}>
+            <p style={{ textAlign: 'center', color: 'var(--color-muted-brown)' }}>Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <LoginFormContent />
+    </Suspense>
   );
 }

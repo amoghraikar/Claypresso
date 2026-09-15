@@ -159,30 +159,6 @@ export const Header: React.FC = () => {
               />
             </a>
 
-            {/* Direct Admin Quick Action Pill */}
-            {currentUser?.role === 'ADMIN' && (
-              <Link
-                href="/admin/products/new"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 4,
-                  backgroundColor: 'var(--color-espresso)',
-                  color: '#FFFFFF',
-                  padding: '7px 12px',
-                  borderRadius: 'var(--radius-pill)',
-                  fontSize: '12px',
-                  fontWeight: 800,
-                  textDecoration: 'none',
-                  boxShadow: 'var(--shadow-clay-button)',
-                }}
-                title="Publish a new product to the storefront"
-              >
-                <Plus size={14} />
-                <span>+ Add Piece</span>
-              </Link>
-            )}
-
             {/* Account & User Menu Popover */}
             <div style={{ position: 'relative' }}>
               <button
@@ -209,14 +185,14 @@ export const Header: React.FC = () => {
                       position: 'absolute',
                       top: 8,
                       right: 8,
-                      width: 8,
-                      height: 8,
+                      width: 7,
+                      height: 7,
                       borderRadius: '999px',
-                      background: currentUser.role === 'ADMIN' ? '#FA8C16' : 'var(--color-warm-brown)',
+                      background: 'var(--color-warm-brown)',
                       boxShadow: '0 0 0 2px var(--color-bg-primary)',
                       pointerEvents: 'none',
                     }}
-                    title={currentUser.role === 'ADMIN' ? 'Logged in as Studio Admin' : `Logged in as ${currentUser.firstName}`}
+                    title={`Logged in as ${currentUser.firstName}`}
                   />
                 )}
               </button>
@@ -228,7 +204,7 @@ export const Header: React.FC = () => {
                     position: 'absolute',
                     top: 'calc(100% + 10px)',
                     right: 0,
-                    width: 240,
+                    width: 220,
                     background: '#FFFFFF',
                     borderRadius: 'var(--radius-lg)',
                     border: '1.5px solid var(--color-border)',
@@ -249,77 +225,7 @@ export const Header: React.FC = () => {
                         <div style={{ fontSize: '11px', color: 'var(--color-muted-brown)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {currentUser.email}
                         </div>
-                        {currentUser.role === 'ADMIN' && (
-                          <div style={{ marginTop: 4 }}>
-                            <span style={{ fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: 'var(--radius-pill)', background: '#FFF7E6', color: '#D46B08', border: '1px solid #FFE58F' }}>
-                              👑 Studio Owner / Admin
-                            </span>
-                          </div>
-                        )}
                       </div>
-
-                      {currentUser.role === 'ADMIN' && (
-                        <div style={{ padding: '4px 0', borderBottom: '1px solid var(--color-border)' }}>
-                          <Link
-                            href="/admin/products/new"
-                            onClick={() => setUserDropdownOpen(false)}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 8,
-                              padding: '8px 10px',
-                              borderRadius: 'var(--radius-sm)',
-                              fontSize: '12px',
-                              fontWeight: 800,
-                              color: '#FFFFFF',
-                              backgroundColor: 'var(--color-espresso)',
-                              textDecoration: 'none',
-                              margin: '2px 4px',
-                            }}
-                          >
-                            <Plus size={14} />
-                            <span>+ Add New Product</span>
-                          </Link>
-
-                          <Link
-                            href="/admin"
-                            onClick={() => setUserDropdownOpen(false)}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 8,
-                              padding: '7px 10px',
-                              borderRadius: 'var(--radius-sm)',
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              color: 'var(--color-espresso)',
-                              textDecoration: 'none',
-                            }}
-                          >
-                            <LayoutDashboard size={14} />
-                            <span>Studio Operations</span>
-                          </Link>
-
-                          <Link
-                            href="/admin/products"
-                            onClick={() => setUserDropdownOpen(false)}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 8,
-                              padding: '7px 10px',
-                              borderRadius: 'var(--radius-sm)',
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              color: 'var(--color-espresso)',
-                              textDecoration: 'none',
-                            }}
-                          >
-                            <Package size={14} />
-                            <span>Manage Catalog</span>
-                          </Link>
-                        </div>
-                      )}
 
                       <Link
                         href="/account"
@@ -328,7 +234,7 @@ export const Header: React.FC = () => {
                           display: 'flex',
                           alignItems: 'center',
                           gap: 8,
-                          padding: '7px 10px',
+                          padding: '8px 10px',
                           borderRadius: 'var(--radius-sm)',
                           fontSize: '12px',
                           fontWeight: 600,
@@ -384,28 +290,7 @@ export const Header: React.FC = () => {
                           textDecoration: 'none',
                         }}
                       >
-                        <span>Customer Sign In</span>
-                      </Link>
-
-                      <Link
-                        href="/account/login?mode=admin"
-                        onClick={() => setUserDropdownOpen(false)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 8,
-                          padding: '8px 10px',
-                          borderRadius: 'var(--radius-sm)',
-                          fontSize: '13px',
-                          fontWeight: 800,
-                          backgroundColor: 'var(--color-peach-light)',
-                          color: 'var(--color-espresso)',
-                          textDecoration: 'none',
-                          border: '1px solid var(--color-warm-brown)',
-                        }}
-                      >
-                        <Sparkles size={14} color="var(--color-warm-brown)" />
-                        <span>✦ Studio Owner Login</span>
+                        <span>Sign In</span>
                       </Link>
 
                       <Link
@@ -526,50 +411,37 @@ export const Header: React.FC = () => {
           ))}
         </ul>
 
-        {currentUser?.role === 'ADMIN' ? (
-          <div style={{ padding: '16px 20px', backgroundColor: '#FFF7E6', borderBottom: '1px solid #FFE58F', margin: '0 0 16px' }}>
-            <div style={{ fontSize: '11px', fontWeight: 800, color: '#D46B08', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
-              👑 Studio Owner Controls
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Link
-                href="/admin/products/new"
-                className={styles.mobileNavLink}
-                style={{ fontWeight: 800, color: 'var(--color-espresso)' }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                + Add New Product Piece
-              </Link>
-              <Link
-                href="/admin"
-                className={styles.mobileNavLink}
-                style={{ fontSize: '14px', color: 'var(--color-espresso)' }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Studio Operations Dashboard
-              </Link>
-              <Link
-                href="/admin/products"
-                className={styles.mobileNavLink}
-                style={{ fontSize: '14px', color: 'var(--color-espresso)' }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Manage Product Catalog
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div style={{ padding: '0 20px 16px' }}>
+        <div style={{ padding: '0 20px 16px', borderBottom: '1px solid var(--color-border)' }}>
+          {currentUser ? (
             <Link
-              href="/account/login?mode=admin"
+              href="/account"
               className={styles.mobileNavLink}
-              style={{ color: 'var(--color-warm-brown)', fontWeight: 700 }}
+              style={{ fontWeight: 700 }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              ✦ Studio Owner Portal Sign In
+              My Account ({currentUser.firstName}) →
             </Link>
-          </div>
-        )}
+          ) : (
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <Link
+                href="/account/login"
+                className={styles.mobileNavLink}
+                style={{ fontWeight: 700 }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/account/register"
+                className={styles.mobileNavLink}
+                style={{ color: 'var(--color-warm-brown)' }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Register
+              </Link>
+            </div>
+          )}
+        </div>
 
         <div className={styles.mobileUtilityRow}>
           <Link
