@@ -71,13 +71,6 @@ export default async function HomePage() {
                   Make it Custom
                 </Button>
               </div>
-
-              {/* Bento Studio Chips */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: 'var(--space-2)' }}>
-                <span className="clay-pill">✦ 100% Oven-Baked</span>
-                <span className="clay-pill">✦ Zero Factory Molds</span>
-                <span className="clay-pill">✦ PAN-India Courier</span>
-              </div>
             </div>
 
             {/* Editorial Clay Product Composition with Multi-depth Parallax & 3D Tilt */}

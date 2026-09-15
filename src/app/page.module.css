@@ -15,13 +15,12 @@
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  gap: var(--space-12);
+  gap: var(--space-10);
 }
 
 .heroContent {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
   z-index: 2;
 }
 
@@ -29,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 16px;
 }
 
 .heroTagline {
@@ -45,7 +45,6 @@
   border-radius: var(--radius-pill);
   width: fit-content;
   border: 1px solid var(--color-border);
-  animation: clayFadeUp 800ms var(--ease-clay-settle) 60ms both;
 }
 
 .heroHeadline {
@@ -55,7 +54,7 @@
   color: var(--color-espresso);
   letter-spacing: -0.03em;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 16px 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -69,15 +68,6 @@
 
 .revealLine {
   display: block;
-  animation: textRevealUp 920ms var(--ease-clay-settle) both;
-}
-
-.revealLineDelay1 {
-  animation-delay: 140ms;
-}
-
-.revealLineDelay2 {
-  animation-delay: 280ms;
 }
 
 .heroHeadline em {
@@ -90,18 +80,15 @@
   font-size: var(--text-body-lg);
   line-height: 1.6;
   color: var(--color-text-secondary);
-  max-width: 500px;
-  margin: 0;
-  animation: clayFadeUp 850ms var(--ease-clay-settle) 360ms both;
+  max-width: 520px;
+  margin: 0 0 28px 0;
 }
 
 .heroCtaGroup {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 14px;
   align-items: center;
-  margin-top: var(--space-2);
-  animation: clayFadeUp 850ms var(--ease-clay-settle) 480ms both;
 }
 
 /* Editorial Clay Composition */
@@ -700,12 +687,14 @@
 /* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
   .heroGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-6);
+    align-items: center;
   }
 
   .heroComposition {
-    height: 420px;
+    max-width: 380px;
+    height: 380px;
   }
 
   .customGrid {
@@ -727,6 +716,16 @@
 }
 
 @media (max-width: 768px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .heroComposition {
+    max-width: 340px;
+    height: 340px;
+  }
+
   .heroHeadline {
     font-size: var(--text-h1);
   }

@@ -4,13 +4,13 @@
   justify-content: center;
   gap: var(--space-2);
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 700;
   font-size: var(--text-body-sm);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
   transition: transform var(--duration-button) var(--ease-clay-squish),
               background-color var(--duration-button) var(--ease-smooth),
               box-shadow var(--duration-button) var(--ease-smooth),
@@ -27,21 +27,23 @@
 /* Sizes */
 .sm {
   height: 38px;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-5);
   font-size: var(--text-caption);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
 }
 
 .md {
-  height: 48px;
+  height: 46px;
   padding: 0 var(--space-6);
   font-size: var(--text-body-sm);
+  border-radius: var(--radius-pill);
 }
 
 .lg {
-  height: 52px;
+  height: 50px;
   padding: 0 var(--space-8);
-  font-size: var(--text-body);
+  font-size: 14.5px;
+  border-radius: var(--radius-pill);
 }
 
 /* Full Width */
