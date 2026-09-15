@@ -30,14 +30,10 @@ export default async function HomePage() {
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+              <div className={styles.heroHeaderRow}>
                 <div className={styles.heroTagline}>
                   <Sparkles size={14} color="var(--color-warm-brown)" />
                   <span>Handmade Clay Studio • Issue 2026</span>
-                </div>
-                <div className="stamp-seal" aria-hidden="true">
-                  <span>Claypresso</span>
-                  <span>Est. 2026 • BLR</span>
                 </div>
               </div>
 
@@ -86,52 +82,56 @@ export default async function HomePage() {
 
             {/* Editorial Clay Product Composition with Multi-depth Parallax & 3D Tilt */}
             <div className={styles.heroComposition}>
-              <ParallaxLayer speed={10} tilt={true} style={{ width: '100%', height: '100%', position: 'relative' }}>
-                <div className={styles.heroMainImageWrapper}>
+              {/* Main Photo Card with Parallax */}
+              <ParallaxLayer speed={10} tilt={true} style={{ width: '100%', height: '100%' }}>
+                <div className={styles.heroMainCard}>
                   <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
-                  <Image
-                    src="/images/products/crescent-cat-keychain-sq.jpg"
-                    alt="Handcrafted Claypresso Midnight Crescent Cat keychain charm in hand"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 550px"
-                    quality={85}
-                    className={styles.catImage}
-                  />
+                  <div className={styles.heroImageFrame}>
+                    <Image
+                      src="/images/products/crescent-cat-keychain-sq.jpg"
+                      alt="Handcrafted Claypresso Midnight Crescent Cat keychain charm in hand"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, 480px"
+                      quality={85}
+                      className={styles.catImage}
+                    />
+                  </div>
+
+                  {/* Tactile Stamp Seal embedded on the photo card like an authentic postmark */}
+                  <div className={styles.heroStamp} aria-hidden="true">
+                    <span>Claypresso</span>
+                    <span>Est. 2026 • BLR</span>
+                  </div>
                 </div>
               </ParallaxLayer>
 
-              {/* Floating Clay Accent Tile (Inverted counter-drift) */}
-              <ParallaxLayer speed={-14} style={{ position: 'absolute', bottom: -20, left: -20, zIndex: 3 }}>
-                <div className={styles.heroFloatingAccent}>
-                  <div className="washi-tape washi-tape-top-right washi-tape-sage" style={{ width: 50, height: 14 }} aria-hidden="true" />
-                  <Image
-                    src="/images/products/dragon-couple-keychain-sq.jpg"
-                    alt="Night & Light Fury couple keychain detail"
-                    fill
-                    priority
-                    sizes="160px"
-                    quality={85}
-                    className={styles.catImage}
-                  />
-                </div>
-              </ParallaxLayer>
-
-              {/* Floating Studio Badge with Responsive Depth */}
-              <ParallaxLayer speed={16} style={{ position: 'absolute', top: -16, right: -16, zIndex: 4 }}>
-                <div className={styles.heroFloatingBadge}>
+              {/* Floating Clay Accent Tile (Layered on bottom-left, counter-drift) */}
+              <ParallaxLayer speed={-8} style={{ position: 'absolute', bottom: '16px', left: '-24px', zIndex: 5 }}>
+                <div className={styles.heroFloatingAccentCard}>
                   <div
-                    style={{
-                      position: 'relative',
-                      width: 44,
-                      height: 44,
-                      borderRadius: 'var(--radius-pill)',
-                      overflow: 'hidden',
-                      flexShrink: 0,
-                      background: 'var(--color-cream)',
-                      border: '1px solid var(--color-border)',
-                    }}
-                  >
+                    className="washi-tape washi-tape-top-right washi-tape-sage"
+                    style={{ width: 46, height: 14, top: -7, right: 10 }}
+                    aria-hidden="true"
+                  />
+                  <div className={styles.heroAccentImageFrame}>
+                    <Image
+                      src="/images/products/dragon-couple-keychain-sq.jpg"
+                      alt="Night & Light Fury couple keychain detail"
+                      fill
+                      priority
+                      sizes="150px"
+                      quality={85}
+                      className={styles.catImage}
+                    />
+                  </div>
+                </div>
+              </ParallaxLayer>
+
+              {/* Floating Studio Badge (Layered on top-right, gentle drift) */}
+              <ParallaxLayer speed={12} style={{ position: 'absolute', top: '16px', right: '-18px', zIndex: 6 }}>
+                <div className={styles.heroFloatingBadge}>
+                  <div className={styles.badgeLogoWrap}>
                     <Image
                       src="/images/logo-badge.png"
                       alt="Claypresso Official Badge"
@@ -142,10 +142,10 @@ export default async function HomePage() {
                     />
                   </div>
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-espresso)' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-espresso)', lineHeight: 1.2 }}>
                       Claypresso Studio
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-muted-brown)' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--color-muted-brown)', lineHeight: 1.3, marginTop: 2 }}>
                       Handmade with love • Bangalore
                     </div>
                   </div>

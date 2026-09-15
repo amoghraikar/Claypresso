@@ -207,13 +207,14 @@ export const Header: React.FC = () => {
                   <span
                     style={{
                       position: 'absolute',
-                      top: 6,
-                      right: 6,
+                      top: 8,
+                      right: 8,
                       width: 8,
                       height: 8,
                       borderRadius: '999px',
                       background: currentUser.role === 'ADMIN' ? '#FA8C16' : 'var(--color-warm-brown)',
                       boxShadow: '0 0 0 2px var(--color-bg-primary)',
+                      pointerEvents: 'none',
                     }}
                     title={currentUser.role === 'ADMIN' ? 'Logged in as Studio Admin' : `Logged in as ${currentUser.firstName}`}
                   />

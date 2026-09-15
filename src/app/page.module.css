@@ -4,16 +4,16 @@
 
 /* 1. HERO SECTION */
 .heroSection {
-  padding-top: var(--space-12);
-  padding-bottom: var(--space-16);
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-14);
   background: var(--color-bg-primary);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .heroGrid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
   gap: var(--space-12);
 }
@@ -23,6 +23,12 @@
   flex-direction: column;
   gap: var(--space-6);
   z-index: 2;
+}
+
+.heroHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .heroTagline {
@@ -84,7 +90,7 @@
   font-size: var(--text-body-lg);
   line-height: 1.6;
   color: var(--color-text-secondary);
-  max-width: 520px;
+  max-width: 500px;
   margin: 0;
   animation: clayFadeUp 850ms var(--ease-clay-settle) 360ms both;
 }
@@ -98,58 +104,110 @@
   animation: clayFadeUp 850ms var(--ease-clay-settle) 480ms both;
 }
 
-/* Editorial Clay Composition & Clay Drop */
+/* Editorial Clay Composition */
 .heroComposition {
   position: relative;
   width: 100%;
-  height: 520px;
+  max-width: 480px;
+  height: 480px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.heroMainImageWrapper {
+/* Main Photo Card */
+.heroMainCard {
   position: relative;
-  width: 82%;
-  height: 88%;
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-xl);
-  overflow: hidden;
+  background: var(--color-bg-surface);
   box-shadow: var(--shadow-clay-card);
   border: 2px solid rgba(255, 255, 255, 0.85);
   animation: clayDrop 950ms var(--ease-clay-squish) 180ms both;
   will-change: transform, opacity;
 }
 
-.heroFloatingBadge {
+.heroImageFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius-xl) - 2px);
+  overflow: hidden;
+}
+
+/* Authentic Scrapbook Stamp Seal on Hero Card */
+.heroStamp {
   position: absolute;
-  bottom: 24px;
-  left: -20px;
+  bottom: 20px;
+  right: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border: 1.5px dashed var(--color-warm-brown);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 246, 238, 0.92);
+  backdrop-filter: blur(4px);
+  color: var(--color-warm-brown);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+  box-shadow: var(--shadow-sm);
+  z-index: 4;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Floating Accent Card (Bottom-Left) */
+.heroFloatingAccentCard {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-lg);
   background: var(--color-bg-surface);
-  padding: 12px 20px;
+  box-shadow: var(--shadow-clay-card);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  animation: clayDrop 1000ms var(--ease-clay-squish) 360ms both;
+  will-change: transform, opacity;
+}
+
+.heroAccentImageFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius-lg) - 2px);
+  overflow: hidden;
+}
+
+/* Floating Studio Badge (Top-Right) */
+.heroFloatingBadge {
+  position: relative;
+  background: var(--color-bg-surface);
+  padding: 10px 16px;
   border-radius: var(--radius-bento);
-  box-shadow: var(--shadow-clay-pill);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-clay-card);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   gap: 12px;
-  z-index: 3;
   animation: clayDrop 1050ms var(--ease-clay-squish) 520ms both;
   will-change: transform, opacity;
 }
 
-.heroFloatingAccent {
-  position: absolute;
-  top: 16px;
-  right: -12px;
-  width: 130px;
-  height: 130px;
-  border-radius: var(--radius-lg);
+.badgeLogoWrap {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
-  box-shadow: var(--shadow-clay-card);
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  z-index: 3;
-  animation: clayDrop 1000ms var(--ease-clay-squish) 360ms both;
-  will-change: transform, opacity;
+  flex-shrink: 0;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
 }
 
 /* 2. TRUST STRIP */
@@ -677,19 +735,19 @@
   }
 
   .heroComposition {
-    height: 340px;
+    height: 360px;
+    max-width: 360px;
   }
 
   .heroFloatingBadge {
-    left: 8px;
-    bottom: 8px;
-    padding: 8px 14px;
+    padding: 6px 12px;
   }
 
-  .heroFloatingAccent {
-    width: 90px;
-    height: 90px;
-    right: 0;
+  .heroFloatingAccentCard {
+    width: 100px;
+    height: 100px;
+    bottom: 8px;
+    left: -12px;
   }
 
   .trustList {
