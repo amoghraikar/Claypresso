@@ -22,6 +22,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
   const isOutOfStock = product.status === 'OUT_OF_STOCK';
   const requiresSelection = product.customizable || (product.variants && product.variants.length > 0);
   const [showHeartAnim, setShowHeartAnim] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,7 +43,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
 
   return (
     <TiltCard maxTilt={3.2} imageFollow={6}>
-      <div className={`${styles.card} ${isOutOfStock ? styles.cardOutOfStock : ''}`}>
+      <div 
+        className={`${styles.card} ${isOutOfStock ? styles.cardOutOfStock : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
         <div className={styles.imageWrapper}>
           <Link
@@ -57,20 +62,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
               src={product.images[0]}
               alt={product.name}
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
               className={`${styles.productImage} tilt-image-follow`}
               priority={priority}
+              quality={75}
             />
 
-            {/* Secondary Hover Image if available */}
-            {product.secondaryImage && (
+            {/* Secondary Hover Image if available - only rendered on hover to prevent unnecessary downloads */}
+            {product.secondaryImage && isHovered && (
               <Image
                 src={product.secondaryImage}
                 alt={`${product.name} detail view`}
                 fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
                 className={styles.secondaryImage}
-                loading="lazy"
+                quality={75}
               />
             )}
           </Link>

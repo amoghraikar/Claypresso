@@ -9,9 +9,11 @@ import {
   Mail, 
   ArrowRight, 
   ShieldAlert, 
-  CheckCircle2, 
+  Eye,
+  EyeOff,
+  Sparkles,
   ExternalLink,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
 import { authService } from '@/services/authService';
 
@@ -21,6 +23,7 @@ function AdminLoginForm() {
 
   const [email, setEmail] = useState('admin@claypresso.com');
   const [password, setPassword] = useState('AdminPassword123!');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -63,7 +66,8 @@ function AdminLoginForm() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#1C1512',
+        backgroundColor: '#231711',
+        backgroundImage: 'radial-gradient(ellipse at top, rgba(141, 90, 60, 0.25) 0%, rgba(35, 23, 17, 1) 70%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -73,44 +77,48 @@ function AdminLoginForm() {
         fontFamily: 'var(--font-body)',
       }}
     >
-      {/* Background Subtle Gradient Glow */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(circle, rgba(235, 122, 102, 0.12) 0%, rgba(28, 21, 18, 0) 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
       <div
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '440px',
-          backgroundColor: '#2A201C',
-          borderRadius: '24px',
-          border: '1.5px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
-          padding: '40px 32px',
+          maxWidth: '460px',
+          backgroundColor: '#2F2018',
+          borderRadius: '26px',
+          border: '1.5px solid rgba(232, 220, 209, 0.16)',
+          boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.08)',
+          padding: '44px 36px',
           zIndex: 2,
         }}
       >
+        {/* Top Peach Washi Tape */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-12px',
+            left: '50%',
+            transform: 'translateX(-50%) rotate(1deg)',
+            width: '100px',
+            height: '24px',
+            backgroundColor: 'rgba(246, 217, 200, 0.85)',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            borderLeft: '2px dashed rgba(255, 255, 255, 0.6)',
+            borderRight: '2px dashed rgba(255, 255, 255, 0.6)',
+            pointerEvents: 'none',
+          }}
+          aria-hidden="true"
+        />
+
         {/* Studio Operations Brand Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 8,
-              padding: '6px 14px',
+              gap: 6,
+              padding: '5px 14px',
               borderRadius: '999px',
-              backgroundColor: 'rgba(235, 122, 102, 0.15)',
-              border: '1px solid rgba(235, 122, 102, 0.3)',
+              backgroundColor: 'rgba(235, 122, 102, 0.18)',
+              border: '1px solid rgba(235, 122, 102, 0.35)',
               color: '#F6D9C8',
               fontSize: '11px',
               fontWeight: 800,
@@ -119,17 +127,17 @@ function AdminLoginForm() {
               marginBottom: '16px',
             }}
           >
-            <Sparkles size={13} color="#EB7A66" />
-            <span>Claypresso Studio Portal</span>
+            <Sparkles size={12} color="#EB7A66" />
+            <span>Claypresso Studio Operations</span>
           </div>
 
-          <div style={{ marginBottom: '12px' }}>
+          <div style={{ marginBottom: '14px', display: 'flex', justifyContent: 'center' }}>
             <Image
               src="/images/logo-light.png"
               alt="Claypresso"
               width={160}
               height={48}
-              style={{ height: '42px', width: 'auto', objectFit: 'contain', margin: '0 auto' }}
+              style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
               priority
             />
           </div>
@@ -146,12 +154,12 @@ function AdminLoginForm() {
           >
             Studio Owner Sign In
           </h1>
-          <p style={{ fontSize: '13px', color: '#A89F91', margin: 0, lineHeight: 1.5 }}>
-            Restricted operations management, inventory catalog, and product publishing.
+          <p style={{ fontSize: '13px', color: '#D4C9BC', margin: 0, lineHeight: 1.5 }}>
+            Private management console for catalog inventory, custom commissions, and product publishing.
           </p>
         </div>
 
-        {/* Error Banner */}
+        {/* Error Notification */}
         {error && (
           <div
             style={{
@@ -160,7 +168,7 @@ function AdminLoginForm() {
               gap: 10,
               padding: '12px 14px',
               borderRadius: '12px',
-              backgroundColor: 'rgba(169, 76, 69, 0.2)',
+              backgroundColor: 'rgba(169, 76, 69, 0.25)',
               border: '1px solid #A94C45',
               color: '#F8B4AF',
               fontSize: '13px',
@@ -180,9 +188,9 @@ function AdminLoginForm() {
               htmlFor="admin-email"
               style={{
                 display: 'block',
-                fontSize: '12px',
+                fontSize: '11.5px',
                 fontWeight: 700,
-                letterSpacing: '0.04em',
+                letterSpacing: '0.05em',
                 textTransform: 'uppercase',
                 color: '#D4C9BC',
                 marginBottom: '8px',
@@ -190,11 +198,11 @@ function AdminLoginForm() {
             >
               Owner Email
             </label>
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <Mail
                 size={16}
-                color="#8C827A"
-                style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }}
+                color="#C4B5A5"
+                style={{ position: 'absolute', left: 14, pointerEvents: 'none', opacity: 0.8 }}
               />
               <input
                 id="admin-email"
@@ -205,13 +213,15 @@ function AdminLoginForm() {
                 placeholder="owner@claypresso.com"
                 style={{
                   width: '100%',
-                  padding: '12px 14px 12px 40px',
-                  backgroundColor: '#1E1714',
-                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  height: '48px',
+                  padding: '0 14px 0 40px',
+                  backgroundColor: '#221611',
+                  border: '1.5px solid rgba(232, 220, 209, 0.2)',
                   borderRadius: '12px',
                   color: '#FFF6EE',
                   fontSize: '14px',
                   outline: 'none',
+                  transition: 'border-color 150ms ease, box-shadow 150ms ease',
                 }}
               />
             </div>
@@ -222,9 +232,9 @@ function AdminLoginForm() {
               htmlFor="admin-password"
               style={{
                 display: 'block',
-                fontSize: '12px',
+                fontSize: '11.5px',
                 fontWeight: 700,
-                letterSpacing: '0.04em',
+                letterSpacing: '0.05em',
                 textTransform: 'uppercase',
                 color: '#D4C9BC',
                 marginBottom: '8px',
@@ -232,30 +242,51 @@ function AdminLoginForm() {
             >
               Master Password
             </label>
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <Lock
                 size={16}
-                color="#8C827A"
-                style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }}
+                color="#C4B5A5"
+                style={{ position: 'absolute', left: 14, pointerEvents: 'none', opacity: 0.8 }}
               />
               <input
                 id="admin-password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter master password"
                 style={{
                   width: '100%',
-                  padding: '12px 14px 12px 40px',
-                  backgroundColor: '#1E1714',
-                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  height: '48px',
+                  padding: '0 42px 0 40px',
+                  backgroundColor: '#221611',
+                  border: '1.5px solid rgba(232, 220, 209, 0.2)',
                   borderRadius: '12px',
                   color: '#FFF6EE',
                   fontSize: '14px',
                   outline: 'none',
+                  transition: 'border-color 150ms ease, box-shadow 150ms ease',
                 }}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                style={{
+                  position: 'absolute',
+                  right: 12,
+                  background: 'none',
+                  border: 'none',
+                  padding: 6,
+                  color: '#C4B5A5',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
             </div>
           </div>
 
@@ -271,17 +302,19 @@ function AdminLoginForm() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              fontSize: '11px',
+              fontSize: '11.5px',
               fontWeight: 700,
               color: '#EB7A66',
-              background: 'none',
-              border: 'none',
-              padding: '2px 0',
+              background: 'rgba(235, 122, 102, 0.12)',
+              border: '1px dashed rgba(235, 122, 102, 0.4)',
+              borderRadius: '999px',
+              padding: '6px 14px',
               cursor: 'pointer',
-              alignSelf: 'flex-start',
+              alignSelf: 'center',
+              transition: 'all 150ms ease',
             }}
           >
-            <span>✦ 1-Click Fill Owner Credentials</span>
+            <span>✦ 1-Tap Fill Studio Owner Credentials</span>
           </button>
 
           <button
@@ -292,17 +325,17 @@ function AdminLoginForm() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 8,
-              marginTop: '8px',
-              padding: '14px 20px',
+              height: '50px',
+              marginTop: '4px',
               backgroundColor: '#EB7A66',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '999px',
-              fontSize: '14px',
+              fontSize: '14.5px',
               fontWeight: 800,
               cursor: loading ? 'not-allowed' : 'pointer',
               boxShadow: '0 8px 24px rgba(235, 122, 102, 0.35)',
-              transition: 'all 200ms ease',
+              transition: 'all 180ms ease',
             }}
           >
             {loading ? (
@@ -316,21 +349,21 @@ function AdminLoginForm() {
           </button>
         </form>
 
-        {/* Return to Public Website */}
-        <div style={{ marginTop: '28px', textAlign: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '20px' }}>
+        {/* Security & Return Link */}
+        <div style={{ marginTop: '26px', textAlign: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '18px' }}>
           <Link
             href="/"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              fontSize: '12px',
-              color: '#A89F91',
+              fontSize: '12.5px',
+              color: '#D4C9BC',
               textDecoration: 'none',
+              fontWeight: 500,
             }}
           >
-            <span>Return to Public Storefront</span>
-            <ExternalLink size={13} />
+            <span>← Return to Public Storefront</span>
           </Link>
         </div>
       </div>
@@ -342,7 +375,7 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div style={{ minHeight: '100vh', backgroundColor: '#1C1512', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: '#231711', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p style={{ color: '#F6D9C8' }}>Loading Studio Portal...</p>
         </div>
       }

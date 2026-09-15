@@ -27,6 +27,7 @@ import { useCart } from '@/context/CartContext';
 import { PRODUCTS } from '@/data/products';
 import { BUSINESS_RULES } from '@/types/product';
 import styles from './account.module.css';
+import AuthCard from './AuthCard';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -111,44 +112,10 @@ export default function AccountPage() {
   // GUEST LANDING VIEW (If not logged in)
   if (!user) {
     return (
-      <div className={styles.accountPage}>
-        <div className="container">
-          <div className={styles.guestContainer}>
-            <div className={styles.guestCard}>
-              <div className={styles.guestIconWrap}>
-                <UserIcon size={32} />
-              </div>
-              <h1 className={styles.guestTitle}>YOUR CLAYPRESSO ACCOUNT</h1>
-              <p className={styles.guestSubtitle}>
-                Create an account to keep your orders together and make future shopping easier. Guest checkout is always available without an account.
-              </p>
-
-              <div className={styles.guestButtonGroup}>
-                <Link href="/account/login" className={styles.primaryAuthBtn}>
-                  LOG IN →
-                </Link>
-                <Link href="/account/register" className={styles.secondaryAuthBtn}>
-                  CREATE ACCOUNT
-                </Link>
-              </div>
-            </div>
-
-            {/* Guest Order Tracking Callout */}
-            <div className={styles.guestTrackBanner}>
-              <div className={styles.trackBannerContent}>
-                <div className={styles.trackBannerHeading}>Track an existing order</div>
-                <p className={styles.trackBannerText}>
-                  Already have an order number? Track your parcel directly without logging in.
-                </p>
-              </div>
-              <Link href="/track-order" className={styles.primaryAuthBtn} style={{ padding: '12px 22px', fontSize: '14px' }}>
-                <span>TRACK AN ORDER</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AuthCard
+        initialMode="login"
+        guestNotice="Welcome to the Claypresso Atelier. Sign in to view your orders, saved charms, and account profile."
+      />
     );
   }
 

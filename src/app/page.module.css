@@ -125,8 +125,7 @@
   background: var(--color-bg-surface);
   box-shadow: var(--shadow-clay-card);
   border: 2px solid rgba(255, 255, 255, 0.85);
-  animation: clayDrop 950ms var(--ease-clay-squish) 180ms both;
-  will-change: transform, opacity;
+  opacity: 1;
 }
 
 .heroImageFrame {
@@ -172,8 +171,7 @@
   background: var(--color-bg-surface);
   box-shadow: var(--shadow-clay-card);
   border: 2px solid rgba(255, 255, 255, 0.95);
-  animation: clayDrop 1000ms var(--ease-clay-squish) 360ms both;
-  will-change: transform, opacity;
+  opacity: 1;
 }
 
 .heroAccentImageFrame {
@@ -195,8 +193,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  animation: clayDrop 1050ms var(--ease-clay-squish) 520ms both;
-  will-change: transform, opacity;
+  opacity: 1;
 }
 
 .badgeLogoWrap {

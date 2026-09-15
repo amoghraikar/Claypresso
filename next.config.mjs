@@ -5,7 +5,9 @@ const nextConfig = {
     devtoolSegmentExplorer: false,
   },
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       {
         protocol: 'https',
@@ -16,6 +18,40 @@ const nextConfig = {
         hostname: 'instagram.com',
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/login',
+        destination: '/account/login',
+        permanent: true,
+      },
+      {
+        source: '/signin',
+        destination: '/account/login',
+        permanent: true,
+      },
+      {
+        source: '/sign-in',
+        destination: '/account/login',
+        permanent: true,
+      },
+      {
+        source: '/signup',
+        destination: '/account/register',
+        permanent: true,
+      },
+      {
+        source: '/register',
+        destination: '/account/register',
+        permanent: true,
+      },
+      {
+        source: '/create-account',
+        destination: '/account/register',
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
