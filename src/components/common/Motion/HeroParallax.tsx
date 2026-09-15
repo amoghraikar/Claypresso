@@ -20,6 +20,14 @@ export const ParallaxLayer: React.FC<ParallaxLayerProps> = ({
 }) => {
   const { normPos, isTouch, isReducedMotion } = useMouse();
   const layerRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    targetRef.current = {
+      x: normPos.x * speed,
+      y: normPos.y * speed,
+    };
+  }, [normPos.x, normPos.y, speed]);
 
   useEffect(() => {
     if (isTouch || isReducedMotion) return;
@@ -33,14 +41,14 @@ export const ParallaxLayer: React.FC<ParallaxLayerProps> = ({
     let currentRotX = 0;
     let currentRotY = 0;
 
-    const targetX = normPos.x * speed;
-    const targetY = normPos.y * speed;
-    const targetRotX = tilt ? -normPos.y * 4 : 0;
-    const targetRotY = tilt ? normPos.x * 4 : 0;
-
     const lerp = (a: number, b: number, n: number) => a + (b - a) * n;
 
     const update = () => {
+      const targetX = targetRef.current.x;
+      const targetY = targetRef.current.y;
+      const targetRotX = tilt ? (-targetY / (speed || 1)) * 4 : 0;
+      const targetRotY = tilt ? (targetX / (speed || 1)) * 4 : 0;
+
       currentX = lerp(currentX, targetX, 0.12);
       currentY = lerp(currentY, targetY, 0.12);
 
@@ -61,7 +69,7 @@ export const ParallaxLayer: React.FC<ParallaxLayerProps> = ({
     return () => {
       cancelAnimationFrame(rafId);
     };
-  }, [normPos.x, normPos.y, speed, tilt, isTouch, isReducedMotion]);
+  }, [speed, tilt, isTouch, isReducedMotion]);
 
   return (
     <div

@@ -10,8 +10,7 @@ import { getDbProducts, getDbCategories } from '@/services/productDbService';
 import { BUSINESS_RULES } from '@/types/product';
 import styles from './page.module.css';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 10;
 
 export default async function HomePage() {
   const [bestsellersRes, newArrivalsRes, categories] = await Promise.all([
@@ -95,6 +94,8 @@ export default async function HomePage() {
                     alt="Handcrafted Claypresso Midnight Crescent Cat keychain charm in hand"
                     fill
                     priority
+                    sizes="(max-width: 768px) 100vw, 550px"
+                    quality={85}
                     className={styles.catImage}
                   />
                 </div>
@@ -108,6 +109,9 @@ export default async function HomePage() {
                     src="/images/products/dragon-couple-keychain-sq.jpg"
                     alt="Night & Light Fury couple keychain detail"
                     fill
+                    priority
+                    sizes="160px"
+                    quality={85}
                     className={styles.catImage}
                   />
                 </div>
@@ -132,6 +136,8 @@ export default async function HomePage() {
                       src="/images/logo-badge.png"
                       alt="Claypresso Official Badge"
                       fill
+                      sizes="44px"
+                      quality={85}
                       style={{ objectFit: 'contain' }}
                     />
                   </div>

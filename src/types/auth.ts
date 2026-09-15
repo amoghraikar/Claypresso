@@ -4,7 +4,8 @@ export interface User {
   lastName: string;
   email: string;
   phone?: string;
-  createdAt: string;
+  role?: 'CUSTOMER' | 'ADMIN' | string;
+  createdAt?: string;
 }
 
 export interface LoginCredentials {

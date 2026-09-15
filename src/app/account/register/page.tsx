@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Sparkles, ArrowRight, UserPlus, AlertCircle } from 'lucide-react';
+import { Sparkles, ArrowRight, UserPlus, AlertCircle, Heart } from 'lucide-react';
 import { authService } from '@/services/authService';
 import styles from '../account.module.css';
 
@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [newsletterOptIn, setNewsletterOptIn] = useState(false);
+  const [newsletterOptIn, setNewsletterOptIn] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -45,10 +45,10 @@ export default function RegisterPage() {
 
     setLoading(true);
     const res = await authService.register({
-      firstName,
-      lastName,
-      email,
-      phone,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
       password,
       confirmPassword,
     });
@@ -65,12 +65,25 @@ export default function RegisterPage() {
     <div className={styles.accountPage}>
       <div className="container">
         <div className={styles.authContainer} style={{ maxWidth: '520px' }}>
-          <div className={styles.authCard}>
-            <div className={styles.authHeader}>
+          {/* Tactile Claymorphic Card with Scrapbook Washi Tape */}
+          <div
+            className={styles.authCard}
+            style={{
+              position: 'relative',
+              boxShadow: 'var(--shadow-clay-card)',
+              borderRadius: 'var(--radius-xl)',
+              backgroundColor: '#FFFFFF',
+              padding: '38px 32px',
+              border: '1px solid var(--color-border-warm)',
+            }}
+          >
+            <div className="washi-tape washi-tape-top-right washi-tape-sage" aria-hidden="true" />
+
+            <div className={styles.authHeader} style={{ marginBottom: 24 }}>
               <div
                 style={{
-                  width: 44,
-                  height: 44,
+                  width: 48,
+                  height: 48,
                   borderRadius: 'var(--radius-pill)',
                   background: 'var(--color-peach)',
                   color: 'var(--color-warm-brown)',
@@ -78,13 +91,16 @@ export default function RegisterPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   margin: '0 auto 12px',
+                  boxShadow: 'var(--shadow-clay-pill)',
                 }}
               >
-                <UserPlus size={20} />
+                <Heart size={20} fill="var(--color-warm-brown)" />
               </div>
-              <h1 className={styles.authTitle}>Create an Account</h1>
+              <h1 className={styles.authTitle} style={{ fontSize: '28px', letterSpacing: '-0.02em' }}>
+                Join the Clay Atelier
+              </h1>
               <p className={styles.authSubtitle}>
-                Save your addresses, view past orders, and manage wishlist pieces.
+                Save delivery details, track courier transit, and curate your dream collection.
               </p>
             </div>
 
@@ -95,7 +111,7 @@ export default function RegisterPage() {
                   color: 'var(--color-error)',
                   padding: '12px 14px',
                   borderRadius: 'var(--radius-md)',
-                  marginBottom: '16px',
+                  marginBottom: '18px',
                   fontSize: '13px',
                   display: 'flex',
                   alignItems: 'center',
@@ -108,187 +124,146 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className={styles.authForm} noValidate>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <form onSubmit={handleSubmit} className={styles.authForm}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <div>
-                  <label
-                    htmlFor="reg-fname"
-                    style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      marginBottom: 4,
-                      color: 'var(--color-espresso)',
-                    }}
-                  >
+                  <label htmlFor="reg-first-name" className={styles.formLabel}>
                     First Name *
                   </label>
                   <input
-                    id="reg-fname"
+                    id="reg-first-name"
                     type="text"
-                    required
-                    placeholder="Pooja"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className={styles.inputField}
+                    placeholder="Priya"
+                    className={styles.formInput}
+                    autoComplete="given-name"
+                    required
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="reg-lname"
-                    style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      marginBottom: 4,
-                      color: 'var(--color-espresso)',
-                    }}
-                  >
+                  <label htmlFor="reg-last-name" className={styles.formLabel}>
                     Last Name
                   </label>
                   <input
-                    id="reg-lname"
+                    id="reg-last-name"
                     type="text"
-                    placeholder="Nair"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className={styles.inputField}
+                    placeholder="Sharma"
+                    className={styles.formInput}
+                    autoComplete="family-name"
                   />
                 </div>
               </div>
 
               <div>
-                <label
-                  htmlFor="reg-email"
-                  style={{
-                    display: 'block',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    marginBottom: 4,
-                    color: 'var(--color-espresso)',
-                  }}
-                >
+                <label htmlFor="reg-email" className={styles.formLabel}>
                   Email Address *
                 </label>
                 <input
                   id="reg-email"
                   type="email"
-                  required
-                  placeholder="pooja@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={styles.inputField}
+                  placeholder="priya@example.com"
+                  className={styles.formInput}
+                  autoComplete="email"
+                  required
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="reg-phone"
-                  style={{
-                    display: 'block',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    marginBottom: 4,
-                    color: 'var(--color-espresso)',
-                  }}
-                >
-                  Mobile Number <span style={{ fontWeight: 400, color: 'var(--color-text-muted)' }}>(Optional)</span>
+                <label htmlFor="reg-phone" className={styles.formLabel}>
+                  Phone Number (Optional for SMS updates)
                 </label>
                 <input
                   id="reg-phone"
                   type="tel"
-                  placeholder="98765 43210"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={styles.inputField}
+                  placeholder="+91 98765 43210"
+                  className={styles.formInput}
+                  autoComplete="tel"
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <div>
-                  <label
-                    htmlFor="reg-pwd"
-                    style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      marginBottom: 4,
-                      color: 'var(--color-espresso)',
-                    }}
-                  >
-                    Password (6+ chars) *
+                  <label htmlFor="reg-password" className={styles.formLabel}>
+                    Password *
                   </label>
                   <input
-                    id="reg-pwd"
+                    id="reg-password"
                     type="password"
-                    required
-                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={styles.inputField}
+                    placeholder="Min. 6 chars"
+                    className={styles.formInput}
+                    autoComplete="new-password"
+                    required
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="reg-cpwd"
-                    style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      marginBottom: 4,
-                      color: 'var(--color-espresso)',
-                    }}
-                  >
+                  <label htmlFor="reg-confirm-password" className={styles.formLabel}>
                     Confirm Password *
                   </label>
                   <input
-                    id="reg-cpwd"
+                    id="reg-confirm-password"
                     type="password"
-                    required
-                    placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className={styles.inputField}
+                    placeholder="Repeat password"
+                    className={styles.formInput}
+                    autoComplete="new-password"
+                    required
                   />
                 </div>
               </div>
 
-              {/* Explicitly Optional Newsletter Opt-In */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginTop: 4 }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 10,
+                  fontSize: '13px',
+                  color: 'var(--color-text-secondary)',
+                  cursor: 'pointer',
+                  marginTop: 6,
+                }}
+              >
                 <input
-                  id="reg-newsletter"
                   type="checkbox"
                   checked={newsletterOptIn}
                   onChange={(e) => setNewsletterOptIn(e.target.checked)}
-                  style={{ accentColor: 'var(--color-warm-brown)', marginTop: 3, width: 16, height: 16 }}
+                  style={{ marginTop: 3, accentColor: 'var(--color-warm-brown)' }}
                 />
-                <label htmlFor="reg-newsletter" style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-                  (Optional) Send me quiet drop announcements and occasional studio news.
-                </label>
-              </div>
+                <span>Receive studio letters, drop countdowns, and secret bespoke slots.</span>
+              </label>
 
               <button
+                id="register-submit-btn"
                 type="submit"
                 disabled={loading}
-                className={styles.primaryAuthBtn}
-                style={{ width: '100%', justifyContent: 'center', marginTop: 8 }}
+                className={styles.submitBtn}
+                style={{
+                  backgroundColor: 'var(--color-espresso)',
+                  boxShadow: 'var(--shadow-clay-button)',
+                  marginTop: '12px',
+                }}
               >
-                {loading ? 'Creating Account...' : 'CREATE ACCOUNT →'}
+                <span>{loading ? 'Creating Account...' : 'Create My Account'}</span>
+                <ArrowRight size={16} />
               </button>
             </form>
 
             <div className={styles.authFooter}>
-              <span>
-                Already have an account?{' '}
-                <Link href="/account/login" className={styles.authLink}>
-                  Log In
-                </Link>
-              </span>
-              <span>
-                Guest checkout is always default • No account required to buy.
-              </span>
+              <span>Already have an account? </span>
+              <Link href="/account/login" className={styles.authLink}>
+                Log in here
+              </Link>
             </div>
           </div>
         </div>
