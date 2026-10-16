@@ -209,11 +209,39 @@
   z-index: 3;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .card:hover .quickAddBar {
   transform: translateY(0);
   opacity: 1;
+}
+
+.inspectBtn {
+  background-color: var(--color-espresso);
+  color: var(--color-ivory);
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-micro) var(--ease-clay-squish);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.inspectBtn:hover {
+  background-color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-neo-sm);
 }
 
 .quickAddBtn {
@@ -223,7 +251,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
   transition: background-color var(--duration-micro) var(--ease-smooth),

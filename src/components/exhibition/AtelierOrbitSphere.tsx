@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Product, CategoryInfo } from '@/types/product';
-import { useCart } from '@/context/CartContext';
-import { ShoppingBag, ArrowRight, ArrowLeft, X, Sparkles, Check, ZoomIn, ZoomOut } from 'lucide-react';
+import { useDossier } from '@/context/DossierContext';
+import { soundEngine } from '@/utils/audioFx';
+import { Volume2, VolumeX } from 'lucide-react';
 import styles from './AtelierOrbitSphere.module.css';
 
 interface AtelierOrbitSphereProps {
@@ -14,12 +15,11 @@ interface AtelierOrbitSphereProps {
 }
 
 export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products, categories }) => {
-  const { addToCart } = useCart();
+  const { openDossier } = useDossier();
 
   // State
   const [activeCategorySlug, setActiveCategorySlug] = useState<string>('all');
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [addedAnimation, setAddedAnimation] = useState<boolean>(false);
+  const [soundOn, setSoundOn] = useState<boolean>(false);
   const [clockTime, setClockTime] = useState<string>('00:00:00');
 
   // 3D Orbit Physics
@@ -28,7 +28,7 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
   const [zoom, setZoom] = useState<number>(1);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  const rotRef = useRef({ rotX: -12, rotY: 30, velX: 0, velY: 0, lastX: 0, lastY: 0 });
+  const rotRef = useRef({ rotX: -12, rotY: 30, velX: 0, velY: 0, lastX: 0, lastY: 0, lastClickTime: 0 });
   const animFrameRef = useRef<number | null>(null);
 
   // 1. Live Bangalore atelier clock
@@ -113,6 +113,12 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
 
     setRotX(rotRef.current.rotX);
     setRotY(rotRef.current.rotY);
+
+    const now = Date.now();
+    if (now - rotRef.current.lastClickTime > 90) {
+      soundEngine.playCeramicClick(600 + Math.abs(deltaX) * 12, 0.025);
+      rotRef.current.lastClickTime = now;
+    }
   };
 
   const handlePointerUp = () => {
@@ -125,11 +131,18 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
     setZoom((prev) => Math.max(0.7, Math.min(1.4, prev - e.deltaY * 0.001)));
   };
 
-  // 4. Fibonacci Sphere Calculation
+  // 4. Fibonacci Sphere Calculation with Depth-of-Field 3D matrix projection
   const nodes = useMemo(() => {
     const list = filteredProducts;
     const N = list.length;
     const baseRadius = 340;
+
+    const radX = (rotX * Math.PI) / 180;
+    const radY = (rotY * Math.PI) / 180;
+    const cosX = Math.cos(radX);
+    const sinX = Math.sin(radX);
+    const cosY = Math.cos(radY);
+    const sinY = Math.sin(radY);
 
     return list.map((product, i) => {
       const phi = Math.acos(1 - (2 * (i + 0.5)) / N);
@@ -139,40 +152,24 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
       const y = Math.round(baseRadius * Math.cos(phi));
       const z = Math.round(baseRadius * Math.sin(phi) * Math.sin(theta));
 
-      return { product, x, y, z, index: i };
+      const z1 = -x * sinY + z * cosY;
+      const zDepth = y * sinX + z1 * cosX;
+
+      const depthRatio = zDepth / baseRadius;
+      const isFront = depthRatio > 0;
+      const scale = isFront ? 1.0 + depthRatio * 0.22 : 0.85 + depthRatio * 0.12;
+      const opacity = isFront ? 1.0 : Math.max(0.4, 0.75 + depthRatio * 0.35);
+      const blur = isFront ? 0 : Math.min(1.8, Math.abs(depthRatio) * 1.5);
+      const zIndex = Math.round(zDepth + 600);
+
+      return { product, x, y, z, index: i, scale, opacity, blur, zIndex };
     });
-  }, [filteredProducts]);
+  }, [filteredProducts, rotX, rotY]);
 
-  // Dossier Navigation
-  const handlePrevProduct = () => {
-    if (!selectedProduct) return;
-    const curr = filteredProducts.findIndex((p) => p.id === selectedProduct.id);
-    const prev = (curr - 1 + filteredProducts.length) % filteredProducts.length;
-    setSelectedProduct(filteredProducts[prev]);
+  const toggleSound = () => {
+    const next = soundEngine.toggleSound();
+    setSoundOn(next);
   };
-
-  const handleNextProduct = () => {
-    if (!selectedProduct) return;
-    const curr = filteredProducts.findIndex((p) => p.id === selectedProduct.id);
-    const next = (curr + 1) % filteredProducts.length;
-    setSelectedProduct(filteredProducts[next]);
-  };
-
-  const handleBuy = (product: Product) => {
-    addToCart(product, 1, undefined, null, true);
-    setAddedAnimation(true);
-    setTimeout(() => setAddedAnimation(false), 1600);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedProduct(null);
-      if (e.key === 'ArrowLeft') handlePrevProduct();
-      if (e.key === 'ArrowRight') handleNextProduct();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProduct, filteredProducts]);
 
   return (
     <section className={styles.exhibitionSection} id="atelier-exhibition" aria-label="3D Atelier Exhibition">
@@ -200,7 +197,10 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
         <div className={styles.filterPills}>
           <button
             className={`${styles.filterPill} ${activeCategorySlug === 'all' ? styles.filterPillActive : ''}`}
-            onClick={() => setActiveCategorySlug('all')}
+            onClick={() => {
+              setActiveCategorySlug('all');
+              soundEngine.playPop();
+            }}
           >
             <span>ALL PIECES ({products.length})</span>
           </button>
@@ -211,7 +211,10 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
               <button
                 key={c.slug}
                 className={`${styles.filterPill} ${activeCategorySlug === c.slug ? styles.filterPillActive : ''}`}
-                onClick={() => setActiveCategorySlug(c.slug)}
+                onClick={() => {
+                  setActiveCategorySlug(c.slug);
+                  soundEngine.playPop();
+                }}
               >
                 <span>{c.name.toUpperCase()} ({count})</span>
               </button>
@@ -222,6 +225,7 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
         {/* 3D Orbit Stage */}
         <div
           className={styles.orbitStage}
+          data-cursor="drag"
           onMouseDown={(e) => handlePointerDown(e.clientX, e.clientY)}
           onMouseMove={(e) => handlePointerMove(e.clientX, e.clientY)}
           onMouseUp={handlePointerUp}
@@ -248,18 +252,22 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
                 <div className={styles.emblemSub}>EST. 2026 • BLR</div>
               </div>
 
-              {/* Orbiting 3D Nodes */}
-              {nodes.map(({ product, x, y, z }) => (
+              {/* Orbiting 3D Nodes with Depth-of-Field */}
+              {nodes.map(({ product, x, y, z, scale, opacity, blur, zIndex }) => (
                 <div
                   key={product.id}
                   className={styles.node}
                   style={{
-                    transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-rotY}deg) rotateX(${-rotX}deg)`,
+                    transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-rotY}deg) rotateX(${-rotX}deg) scale(${scale})`,
+                    opacity,
+                    filter: blur > 0 ? `blur(${blur}px)` : 'none',
+                    zIndex,
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedProduct(product);
+                    openDossier(product, filteredProducts);
                   }}
+                  onMouseEnter={() => soundEngine.playCeramicClick(720, 0.02)}
                   role="button"
                   tabIndex={0}
                   aria-label={`Inspect ${product.name}`}
@@ -292,9 +300,18 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
           {/* Stage Controls */}
           <div className={styles.stageControls}>
             <div className={styles.stageHint}>
-              <span>✦ DRAG OR TOUCH TO ORBIT • CLICK CREATION TO INSPECT</span>
+              <span>✦ DRAG OR TOUCH TO ORBIT • CLICK TO INSPECT</span>
             </div>
+
             <div className={styles.zoomButtonGroup}>
+              <button
+                className={styles.zoomBtn}
+                onClick={toggleSound}
+                title={soundOn ? 'Mute atelier sound' : 'Enable ceramic audio FX'}
+                aria-label="Toggle sound"
+              >
+                {soundOn ? <Volume2 size={12} /> : <VolumeX size={12} />}
+              </button>
               <button
                 className={styles.zoomBtn}
                 onClick={() => setZoom((z) => Math.min(1.4, z + 0.1))}
@@ -312,123 +329,6 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Artwork Dossier Inspector Modal */}
-      <div
-        className={`${styles.dossierBackdrop} ${selectedProduct ? styles.dossierBackdropOpen : ''}`}
-        onClick={() => setSelectedProduct(null)}
-      >
-        {selectedProduct && (
-          <div
-            className={styles.dossierCard}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-label={selectedProduct.name}
-          >
-            <button
-              className={styles.closeBtn}
-              onClick={() => setSelectedProduct(null)}
-              aria-label="Close dossier"
-            >
-              <X size={16} />
-            </button>
-
-            {/* Left: Framed Artwork Visual */}
-            <div className={styles.dossierVisual}>
-              <div className={`${styles.dossierImgWrap} marching-ants-frame`}>
-                <Image
-                  src={selectedProduct.images[0]}
-                  alt={selectedProduct.name}
-                  width={500}
-                  height={500}
-                  className={styles.dossierImg}
-                />
-                <span className={`${styles.dossierCorner} ${styles.dossierTL}`} />
-                <span className={`${styles.dossierCorner} ${styles.dossierTR}`} />
-                <span className={`${styles.dossierCorner} ${styles.dossierBL}`} />
-                <span className={`${styles.dossierCorner} ${styles.dossierBR}`} />
-              </div>
-            </div>
-
-            {/* Right: Technical Dossier Specs */}
-            <div className={styles.dossierInfo}>
-              <div>
-                <div className={styles.eyebrow}>
-                  <span>CLP-ATELIER // {selectedProduct.category.toUpperCase()}</span>
-                </div>
-
-                <h3 className={styles.headline}>{selectedProduct.name}</h3>
-                <div className={styles.rule} />
-
-                <p className={styles.description}>{selectedProduct.description}</p>
-
-                <div className={styles.specsTable}>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>DIMENSIONS</span>
-                    <span className={styles.specValue}>{selectedProduct.dimensions}</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>MEDIUM</span>
-                    <span className={styles.specValue}>{selectedProduct.material}</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>PRODUCTION</span>
-                    <span className={styles.specValue}>{selectedProduct.productionTime}</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>AVAILABILITY</span>
-                    <span className={styles.specValue} style={{ color: 'var(--color-terracotta)' }}>
-                      {selectedProduct.status === 'IN_STOCK' ? 'READY TO SHIP' : 'MADE TO ORDER'}
-                    </span>
-                  </div>
-                </div>
-
-                <div className={styles.priceRow}>
-                  <span className={styles.price}>₹{selectedProduct.price}</span>
-                  {selectedProduct.originalPrice && (
-                    <span className={styles.originalPrice}>₹{selectedProduct.originalPrice}</span>
-                  )}
-                </div>
-
-                <div className={styles.actionGroup}>
-                  <button className={styles.buyBtn} onClick={() => handleBuy(selectedProduct)}>
-                    {addedAnimation ? (
-                      <>
-                        <Check size={14} />
-                        <span>ADDED TO BAG</span>
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingBag size={14} />
-                        <span>BUY PIECE</span>
-                      </>
-                    )}
-                  </button>
-
-                  <Link
-                    href={`/custom?item=${encodeURIComponent(selectedProduct.name)}`}
-                    className={styles.enquireBtn}
-                  >
-                    <span>CUSTOM ORDER</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Prev / Next controls */}
-              <div className={styles.dossierNav}>
-                <button className={styles.navBtn} onClick={handlePrevProduct}>
-                  ← PREV CREATION
-                </button>
-                <span style={{ color: 'var(--color-text-muted)' }}>[ ARROW KEYS TO CYCLE ]</span>
-                <button className={styles.navBtn} onClick={handleNextProduct}>
-                  NEXT CREATION →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

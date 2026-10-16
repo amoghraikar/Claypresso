@@ -3,10 +3,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Plus, ArrowRight } from 'lucide-react';
+import { Heart, Plus, ArrowRight, Sparkles } from 'lucide-react';
 import { Product, BUSINESS_RULES } from '@/types/product';
 import { Badge } from '@/components/ui/Badge/Badge';
 import { useCart } from '@/context/CartContext';
+import { useDossier } from '@/context/DossierContext';
 import styles from './ProductCard.module.css';
 
 import { TiltCard } from '@/components/common/Motion';
@@ -18,6 +19,7 @@ export interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = false }) => {
   const { isWishlisted, toggleWishlist, addToCart } = useCart();
+  const { openDossier } = useDossier();
   const wishlisted = isWishlisted(product.id);
   const isOutOfStock = product.status === 'OUT_OF_STOCK';
   const requiresSelection = product.customizable || (product.variants && product.variants.length > 0);
@@ -126,15 +128,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
           )}
         </button>
 
-        {/* Desktop Quick Action: Quick Add vs View Product */}
-        {!isOutOfStock && (
-          <div className={styles.quickAddBar}>
-            {requiresSelection ? (
+        {/* Desktop Quick Action: Dossier Inspect + Quick Add vs View Product */}
+        <div className={styles.quickAddBar}>
+          <button
+            type="button"
+            className={styles.inspectBtn}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              openDossier(product);
+            }}
+            aria-label={`Inspect ${product.name} specifications`}
+          >
+            <Sparkles size={11} /> Inspect
+          </button>
+
+          {!isOutOfStock && (
+            requiresSelection ? (
               <Link
                 href={`/product/${product.slug}`}
                 className={styles.quickAddBtn}
               >
-                View Product <ArrowRight size={13} />
+                View <ArrowRight size={13} />
               </Link>
             ) : (
               <button
@@ -142,11 +157,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
                 className={styles.quickAddBtn}
                 onClick={handleQuickAdd}
               >
-                <Plus size={14} /> Quick Add
+                <Plus size={14} /> Add
               </button>
-            )}
-          </div>
-        )}
+            )
+          )}
+        </div>
       </div>
 
       <div className={styles.details}>

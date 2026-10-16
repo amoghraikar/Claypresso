@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 };
 
 import { MouseProvider } from '@/context/MouseContext';
+import { DossierProvider } from '@/context/DossierContext';
 import { CustomCursor } from '@/components/common/CustomCursor/CustomCursor';
 
 export default function RootLayout({
@@ -56,26 +57,28 @@ export default function RootLayout({
       <body>
         <MouseProvider>
           <CartProvider>
-            <CustomCursor />
-            <a
-              href="#main-content"
-              className="sr-only"
-              style={{
-                position: 'absolute',
-                top: '10px',
-                left: '10px',
-                background: 'var(--color-espresso)',
-                color: 'var(--color-ivory)',
-                padding: '8px 16px',
-                zIndex: 99999,
-              }}
-            >
-              Skip to main content
-            </a>
-            <Header />
-            <main id="main-content">{children}</main>
-            <Footer />
-            <CartDrawer />
+            <DossierProvider>
+              <CustomCursor />
+              <a
+                href="#main-content"
+                className="sr-only"
+                style={{
+                  position: 'absolute',
+                  top: '10px',
+                  left: '10px',
+                  background: 'var(--color-espresso)',
+                  color: 'var(--color-ivory)',
+                  padding: '8px 16px',
+                  zIndex: 99999,
+                }}
+              >
+                Skip to main content
+              </a>
+              <Header />
+              <main id="main-content">{children}</main>
+              <Footer />
+              <CartDrawer />
+            </DossierProvider>
           </CartProvider>
         </MouseProvider>
       </body>

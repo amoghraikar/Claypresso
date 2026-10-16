@@ -88,6 +88,7 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { name: 'Shop', href: '/shop' },
+    { name: '3D Orbit', href: '/#atelier-exhibition' },
     { name: 'New', href: '/shop?collection=new-arrivals' },
     { name: 'Bestsellers', href: '/shop?collection=bestsellers' },
     { name: 'Custom', href: '/custom' },
@@ -96,9 +97,12 @@ export const Header: React.FC = () => {
 
   return (
     <header className={styles.headerWrapper}>
-      {/* Subtle Trust Ribbon */}
+      {/* Subtle Trust Ribbon with Atelier Telemetry */}
       <div className={styles.announcementBar}>
-        Handmade in Bangalore • <span>Free shipping across India on orders ₹500+</span>
+        <span style={{ fontFamily: 'ui-monospace, monospace', letterSpacing: '0.08em', fontSize: '10px' }}>
+          ✦ BLR ATELIER
+        </span>
+        {' '}• Handmade in Bangalore • <span>Free shipping across India on orders ₹500+</span>
       </div>
 
       <div className="container">
