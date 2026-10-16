@@ -23,6 +23,11 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [soundOn, setSoundOn] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // 3D Orbit Physics
   const [rotX, setRotX] = useState<number>(-12);
@@ -144,9 +149,13 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
     const list = sphereProducts;
     const N = list.length;
 
+    // Use stable initial angles during SSR to guarantee identical markup
+    const currentRotX = isMounted ? rotX : -12;
+    const currentRotY = isMounted ? rotY : 30;
+
     // Convert angles to radians for Depth-of-Field 3D matrix projection
-    const radX = (rotX * Math.PI) / 180;
-    const radY = (rotY * Math.PI) / 180;
+    const radX = (currentRotX * Math.PI) / 180;
+    const radY = (currentRotY * Math.PI) / 180;
     const cosX = Math.cos(radX);
     const sinX = Math.sin(radX);
     const cosY = Math.cos(radY);
@@ -156,9 +165,10 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
       const phi = Math.acos(1 - (2 * (i + 0.5)) / N);
       const theta = Math.PI * (1 + Math.sqrt(5)) * (i + 0.5);
 
-      const x = Math.round(baseRadius * Math.sin(phi) * Math.cos(theta));
-      const y = Math.round(baseRadius * Math.cos(phi));
-      const z = Math.round(baseRadius * Math.sin(phi) * Math.sin(theta));
+      // Truncate to integers to prevent floating-point boundary rounding flips
+      const x = Math.trunc(baseRadius * Math.sin(phi) * Math.cos(theta));
+      const y = Math.trunc(baseRadius * Math.cos(phi));
+      const z = Math.trunc(baseRadius * Math.sin(phi) * Math.sin(theta));
 
       // Calculate projected camera-space Z depth for real 3D depth-of-field
       // 1. Rotate around Y:
@@ -170,13 +180,13 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
       const depthRatio = zDepth / baseRadius; // Range approx -1 to 1
       const isFront = depthRatio > 0;
       const scale = isFront ? 1.0 + depthRatio * 0.22 : 0.85 + depthRatio * 0.12;
-      const opacity = isFront ? 1.0 : Math.max(0.4, 0.75 + depthRatio * 0.35);
+      const opacity = isFront ? 1 : Math.max(0.4, 0.75 + depthRatio * 0.35);
       const blur = isFront ? 0 : Math.min(1.8, Math.abs(depthRatio) * 1.5);
       const zIndex = Math.round(zDepth + 600);
 
       return { product, x, y, z, index: i, zDepth, scale, opacity, blur, zIndex };
     });
-  }, [sphereProducts, baseRadius, rotX, rotY]);
+  }, [sphereProducts, baseRadius, rotX, rotY, isMounted]);
 
   // Category switch handler with sound
   const handleCategoryChange = (cat: string) => {
@@ -307,6 +317,7 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
                     <div
                       key={product.id}
                       className={styles.node}
+                      suppressHydrationWarning
                       style={{
                         transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-rotY}deg) rotateX(${-rotX}deg) scale(${scale})`,
                         opacity,
@@ -475,6 +486,7 @@ export const HeroShowcase: React.FC<HeroShowcaseProps> = ({ products }) => {
                   <div
                     key={product.id}
                     className={styles.node}
+                    suppressHydrationWarning
                     style={{
                       transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-rotY}deg) rotateX(${-rotX}deg) scale(${scale * 1.15})`,
                       opacity,

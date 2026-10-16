@@ -21,6 +21,11 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
   const [activeCategorySlug, setActiveCategorySlug] = useState<string>('all');
   const [soundOn, setSoundOn] = useState<boolean>(false);
   const [clockTime, setClockTime] = useState<string>('00:00:00');
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // 3D Orbit Physics
   const [rotX, setRotX] = useState<number>(-12);
@@ -137,8 +142,11 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
     const N = list.length;
     const baseRadius = 340;
 
-    const radX = (rotX * Math.PI) / 180;
-    const radY = (rotY * Math.PI) / 180;
+    const currentRotX = isMounted ? rotX : -12;
+    const currentRotY = isMounted ? rotY : 30;
+
+    const radX = (currentRotX * Math.PI) / 180;
+    const radY = (currentRotY * Math.PI) / 180;
     const cosX = Math.cos(radX);
     const sinX = Math.sin(radX);
     const cosY = Math.cos(radY);
@@ -148,9 +156,9 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
       const phi = Math.acos(1 - (2 * (i + 0.5)) / N);
       const theta = Math.PI * (1 + Math.sqrt(5)) * (i + 0.5);
 
-      const x = Math.round(baseRadius * Math.sin(phi) * Math.cos(theta));
-      const y = Math.round(baseRadius * Math.cos(phi));
-      const z = Math.round(baseRadius * Math.sin(phi) * Math.sin(theta));
+      const x = Math.trunc(baseRadius * Math.sin(phi) * Math.cos(theta));
+      const y = Math.trunc(baseRadius * Math.cos(phi));
+      const z = Math.trunc(baseRadius * Math.sin(phi) * Math.sin(theta));
 
       const z1 = -x * sinY + z * cosY;
       const zDepth = y * sinX + z1 * cosX;
@@ -158,13 +166,13 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
       const depthRatio = zDepth / baseRadius;
       const isFront = depthRatio > 0;
       const scale = isFront ? 1.0 + depthRatio * 0.22 : 0.85 + depthRatio * 0.12;
-      const opacity = isFront ? 1.0 : Math.max(0.4, 0.75 + depthRatio * 0.35);
+      const opacity = isFront ? 1 : Math.max(0.4, 0.75 + depthRatio * 0.35);
       const blur = isFront ? 0 : Math.min(1.8, Math.abs(depthRatio) * 1.5);
       const zIndex = Math.round(zDepth + 600);
 
       return { product, x, y, z, index: i, scale, opacity, blur, zIndex };
     });
-  }, [filteredProducts, rotX, rotY]);
+  }, [filteredProducts, rotX, rotY, isMounted]);
 
   const toggleSound = () => {
     const next = soundEngine.toggleSound();
@@ -257,6 +265,7 @@ export const AtelierOrbitSphere: React.FC<AtelierOrbitSphereProps> = ({ products
                 <div
                   key={product.id}
                   className={styles.node}
+                  suppressHydrationWarning
                   style={{
                     transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-rotY}deg) rotateX(${-rotX}deg) scale(${scale})`,
                     opacity,
