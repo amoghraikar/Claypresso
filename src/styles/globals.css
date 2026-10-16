@@ -29,6 +29,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom Gallery Cursor (Hides duplicate OS pointer on desktop fine pointer) */
+@media (pointer: fine) {
+  body, a, button, [role="button"] {
+    cursor: none;
+  }
+  input, textarea, select {
+    cursor: auto;
+  }
+}
+
 /* Subtle Tactile Clay/Paper Grain Texture */
 body::before {
   content: "";
