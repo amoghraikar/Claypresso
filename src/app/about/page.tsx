@@ -52,8 +52,8 @@ export default function AboutPage() {
             <div className={styles.storyCard}>
               <div className={styles.storyCardImageWrap}>
                 <Image
-                  src="/images/products/crescent-cat-keychain.jpg"
-                  alt="Midnight Crescent Cat Keychain handmade piece"
+                  src="/images/products/puzzle-couple-keychain.jpg"
+                  alt="Pink Puzzle Piece couple keychain handmade piece"
                   width={400}
                   height={260}
                   className={styles.storyCardImage}
@@ -62,7 +62,7 @@ export default function AboutPage() {
               <div className={styles.storyCardContent}>
                 <h3 className={styles.storyCardTitle}>Charms &amp; Keychains</h3>
                 <p className={styles.storyCardText}>
-                  Sculpted characters, cosmic kitties, and playful companion pieces attached to durable, high-polish keyrings.
+                  Sculpted characters, duo companions, and playful everyday pieces attached to durable, high-polish keyrings.
                 </p>
               </div>
             </div>
@@ -70,17 +70,17 @@ export default function AboutPage() {
             <div className={styles.storyCard}>
               <div className={styles.storyCardImageWrap}>
                 <Image
-                  src="/images/products/spiral-star-charm.jpg"
-                  alt="Pastel Mini Phone Charm with beaded strap"
+                  src="/images/products/red-monogram-keychain.jpg"
+                  alt="Cherry Red Monogram Beaded Charm"
                   width={400}
                   height={260}
                   className={styles.storyCardImage}
                 />
               </div>
               <div className={styles.storyCardContent}>
-                <h3 className={styles.storyCardTitle}>Mini Phone Straps</h3>
+                <h3 className={styles.storyCardTitle}>Mini Phone Straps &amp; Beads</h3>
                 <p className={styles.storyCardText}>
-                  Beaded wrist loops anchored with hand-shaped clay centerpieces designed for everyday daily handling.
+                  Hand-formed glossy clay beads featuring bespoke monogram letters and tactile accents on silver link chains.
                 </p>
               </div>
             </div>
@@ -88,17 +88,17 @@ export default function AboutPage() {
             <div className={styles.storyCard}>
               <div className={styles.storyCardImageWrap}>
                 <Image
-                  src="/images/products/puppy-head-keychain.jpg"
-                  alt="Puppy Head Sculpted Clay Accessory"
+                  src="/images/products/frog-avocado-trio.jpg"
+                  alt="Pond Frog and Avocado sculpted clay accessory"
                   width={400}
                   height={260}
                   className={styles.storyCardImage}
                 />
               </div>
               <div className={styles.storyCardContent}>
-                <h3 className={styles.storyCardTitle}>Bespoke Sculptures</h3>
+                <h3 className={styles.storyCardTitle}>Bespoke Sculptures &amp; Companions</h3>
                 <p className={styles.storyCardText}>
-                  Pin badges, fridge magnets, and custom portrait pieces shaped from scratch to capture specific moments and personalities.
+                  Pin badges, fridge magnets, and tactile companions shaped from scratch to bring joy to your everyday essentials.
                 </p>
               </div>
             </div>

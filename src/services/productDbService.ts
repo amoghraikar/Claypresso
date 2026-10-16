@@ -256,7 +256,7 @@ export async function getDbCategories(): Promise<CategoryInfo[]> {
         name: c.name as ProductCategory,
         slug: c.slug,
         description: c.description || '',
-        coverImage: c.image || '/images/products/crescent-cat-keychain-sq.jpg',
+        coverImage: c.image || '/images/products/puzzle-couple-keychain-sq.jpg',
         itemCount: c._count.products,
       }));
     }
@@ -296,7 +296,7 @@ export async function getDbCategoryBySlug(slug: string): Promise<CategoryInfo | 
         name: c.name as ProductCategory,
         slug: c.slug,
         description: c.description || '',
-        coverImage: c.image || '/images/products/crescent-cat-keychain-sq.jpg',
+        coverImage: c.image || '/images/products/puzzle-couple-keychain-sq.jpg',
         itemCount: c._count.products,
       };
     }

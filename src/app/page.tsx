@@ -81,8 +81,8 @@ export default async function HomePage() {
                   <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
                   <div className={styles.heroImageFrame}>
                     <Image
-                      src="/images/products/crescent-cat-keychain-sq.jpg"
-                      alt="Handcrafted Claypresso Midnight Crescent Cat keychain charm in hand"
+                      src="/images/products/puzzle-couple-keychain-sq.jpg"
+                      alt="Handcrafted Claypresso Pink Puzzle Piece couple keychain in hand"
                       fill
                       priority
                       sizes="(max-width: 768px) 100vw, 480px"
@@ -109,8 +109,8 @@ export default async function HomePage() {
                   />
                   <div className={styles.heroAccentImageFrame}>
                     <Image
-                      src="/images/products/dragon-couple-keychain-sq.jpg"
-                      alt="Night & Light Fury couple keychain detail"
+                      src="/images/products/frog-avocado-trio-sq.jpg"
+                      alt="Pond frog and avocado companion charm detail"
                       fill
                       priority
                       sizes="150px"
@@ -489,15 +489,15 @@ export default async function HomePage() {
                   <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
                   <div style={{ position: 'relative', width: '100%', height: '230px', overflow: 'hidden', borderRadius: '4px' }}>
                     <Image
-                      src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=800&auto=format&fit=crop"
-                      alt="Clay crafting in studio"
+                      src="/images/showcase/studio-collection-mat.jpg"
+                      alt="Claypresso Studio sculpting table with handcrafted clay charms, dish, and pins"
                       fill
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className={styles.catImage}
                     />
                   </div>
                   <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--color-muted-brown)', paddingTop: '8px', textAlign: 'center', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    FIG. 01 — HAND CONDITIONING
+                    FIG. 01 — STUDIO SCULPTING TABLE
                   </div>
                 </div>
               </div>
@@ -507,15 +507,15 @@ export default async function HomePage() {
                   <div className="washi-tape washi-tape-top-right washi-tape-sage" aria-hidden="true" />
                   <div style={{ position: 'relative', width: '100%', height: '210px', overflow: 'hidden', borderRadius: '4px' }}>
                     <Image
-                      src="/images/products/puppy-head-keychain-sq.jpg"
-                      alt="Caramel puppy clay charm"
+                      src="/images/showcase/stall-poster.jpg"
+                      alt="Claypresso pop-up stall showcase at Kristu Jayanti University"
                       fill
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className={styles.catImage}
                     />
                   </div>
                   <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--color-muted-brown)', paddingTop: '8px', textAlign: 'center', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    FIG. 02 — SCULPTED CHARM
+                    FIG. 02 — POP-UP STALL SHOWCASE
                   </div>
                 </div>
               </div>
@@ -706,8 +706,8 @@ export default async function HomePage() {
           <div className={styles.ugcGrid}>
             <div className={styles.ugcTile}>
               <Image
-                src="/images/products/dragon-couple-keychain.jpg"
-                alt="Night and Light Fury couple keychain in hand"
+                src="/images/products/puzzle-couple-keychain.jpg"
+                alt="Handcrafted pink puzzle piece couple keychain held in hand"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className={styles.catImage}
@@ -716,8 +716,8 @@ export default async function HomePage() {
             </div>
             <div className={styles.ugcTile}>
               <Image
-                src="/images/products/bunny-frog-keychains.jpg"
-                alt="Bunny and Frog clay keychains in hand"
+                src="/images/products/frog-avocado-trio.jpg"
+                alt="Pond frog and avocado companion keychains held in hand"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className={styles.catImage}
@@ -726,8 +726,8 @@ export default async function HomePage() {
             </div>
             <div className={styles.ugcTile}>
               <Image
-                src="/images/products/puppy-head-keychain.jpg"
-                alt="Puppy charm on keys"
+                src="/images/products/red-monogram-keychain.jpg"
+                alt="Handcrafted cherry red monogram beaded charm on lace"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className={styles.catImage}
@@ -736,8 +736,8 @@ export default async function HomePage() {
             </div>
             <div className={styles.ugcTile}>
               <Image
-                src="/images/products/midnight-cat-keychain.jpg"
-                alt="Midnight cat charm on bag"
+                src="/images/showcase/stall-poster.jpg"
+                alt="Claypresso live stall event and handmade clay creations"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className={styles.catImage}
@@ -764,24 +764,24 @@ export default async function HomePage() {
           <div className={styles.instagramGrid}>
             {[
               {
-                url: '/images/products/spiral-star-charm.jpg',
-                alt: 'Handmade crimson spiral star charm',
+                url: '/images/products/puzzle-couple-keychain-sq.jpg',
+                alt: 'Handmade pink puzzle piece couple keychain',
               },
               {
-                url: '/images/products/dragon-couple-keychain-sq.jpg',
-                alt: 'Dragon couple companion charms',
+                url: '/images/products/frog-avocado-trio-sq.jpg',
+                alt: 'Pond frog and avocado companion charms in hand',
               },
               {
-                url: '/images/products/puppy-head-keychain-sq.jpg',
-                alt: 'Puppy clay face charm',
+                url: '/images/products/evil-eye-dish-sq.jpg',
+                alt: 'Greek evil eye protection trinket dish',
               },
               {
-                url: '/images/products/bunny-frog-keychains-sq.jpg',
-                alt: 'Bunny and frog charm pair',
+                url: '/images/products/red-monogram-keychain-sq.jpg',
+                alt: 'Cherry red beaded monogram charm',
               },
               {
-                url: '/images/products/crescent-cat-keychain-sq.jpg',
-                alt: 'Crescent cat charm',
+                url: '/images/products/calcifer-pin-sq.jpg',
+                alt: 'Studio Ghibli Calcifer flame spirit pin',
               },
             ].map((tile, i) => (
 

@@ -80,8 +80,8 @@ export const AboutCustomBannerImage: React.FC = () => {
   return (
     <ParallaxLayer speed={5} tilt className={styles.customBannerImageWrap}>
       <Image
-        src="/images/products/dragon-couple-keychain.jpg"
-        alt="Handcrafted custom pair dragons clay keychain"
+        src="/images/products/puzzle-couple-keychain.jpg"
+        alt="Handcrafted pink puzzle piece couple keychain"
         width={480}
         height={320}
         className={styles.customBannerImage}

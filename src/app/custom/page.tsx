@@ -101,8 +101,8 @@ export default function CustomLandingPage() {
                 <span className={styles.stageLabel}>Step 2: Finished Clay Creation</span>
                 <div className={styles.stageImageWrap}>
                   <Image
-                    src="/images/products/dragon-couple-keychain.jpg"
-                    alt="Completed handcrafted couple dragon clay keychain piece"
+                    src="/images/products/red-monogram-keychain.jpg"
+                    alt="Completed handcrafted custom monogram bead clay charm piece"
                     width={480}
                     height={320}
                     className={styles.stageImage}
