@@ -1,0 +1,240 @@
+/* ============================================================
+   Bestseller Showcase Layout — Compact Grid & Carousel
+   Prevents oversized images & provides interactive curation
+   ============================================================ */
+
+.sectionWrapper {
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.pretitle {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-warm-brown);
+  margin-bottom: 6px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--line-h2);
+  color: var(--color-espresso);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 500px;
+  margin: 0;
+}
+
+/* Control Bar: Categories & Layout Switcher */
+.toolbarRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filterTabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.filterTabs::-webkit-scrollbar {
+  display: none;
+}
+
+.filterTab {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-warm);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-clay-squish);
+  white-space: nowrap;
+}
+
+.filterTab:hover {
+  color: var(--color-espresso);
+  border-color: var(--color-espresso);
+}
+
+.filterTabActive {
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  border-color: var(--color-espresso);
+  box-shadow: 0 2px 8px rgba(45, 27, 21, 0.2);
+}
+
+.filterTabActive:hover {
+  color: var(--color-ivory);
+}
+
+/* View Switcher */
+.viewControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.viewSwitchGroup {
+  display: inline-flex;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  box-shadow: var(--shadow-neo-sm);
+}
+
+.viewBtn {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.viewBtn:hover {
+  color: var(--color-espresso);
+}
+
+.viewBtnActive {
+  background: var(--color-terracotta);
+  color: var(--color-ivory);
+  box-shadow: 0 2px 6px rgba(196, 112, 79, 0.25);
+}
+
+.viewBtnActive:hover {
+  color: var(--color-ivory);
+}
+
+.carouselNavBtns {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navArrowBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-warm);
+  color: var(--color-espresso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-neo-sm);
+}
+
+.navArrowBtn:hover {
+  background: var(--color-espresso);
+  color: var(--color-ivory);
+  border-color: var(--color-espresso);
+  transform: scale(1.08);
+}
+
+/* 1. Compact 4-Column Grid */
+.compactGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.compactCardWrap {
+  width: 100%;
+  max-width: 270px;
+  margin: 0 auto;
+}
+
+/* 2. Horizontal Carousel Tray */
+.carouselTray {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carouselTray::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselItem {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+
+/* Bottom CTA */
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .compactGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .compactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .toolbarRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .viewControls {
+    justify-content: space-between;
+  }
+  .carouselItem {
+    flex: 0 0 220px;
+  }
+}

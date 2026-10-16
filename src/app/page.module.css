@@ -270,6 +270,28 @@
   margin-top: var(--space-10);
 }
 
+/* Standard Product Grid Tokens */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .productGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .productGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+}
+
 /* 4. CATEGORY DISCOVERY — EDITORIAL DIVERSE GRID */
 .categoryGrid {
   display: grid;

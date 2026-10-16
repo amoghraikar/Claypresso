@@ -7,6 +7,7 @@ import { ProductCard } from '@/components/product/ProductCard/ProductCard';
 import { ScrollReveal } from '@/components/ui/ScrollReveal/ScrollReveal';
 import { ParallaxLayer, CurvedLoop, CurvedCircularBadge } from '@/components/common/Motion';
 import { HeroShowcase } from '@/components/home/HeroShowcase';
+import { BestsellerShowcase } from '@/components/home/BestsellerShowcase';
 import { AtelierOrbitSphere } from '@/components/exhibition/AtelierOrbitSphere';
 import { getDbProducts, getDbCategories } from '@/services/productDbService';
 import { BUSINESS_RULES } from '@/types/product';
@@ -147,29 +148,7 @@ export default async function HomePage() {
           ====================================================================== */}
       <section className="section" id="bestsellers">
         <div className="container">
-          <ScrollReveal>
-            <div className={styles.sectionHeader}>
-              <span className={styles.sectionPretitle}>Most Loved</span>
-              <h2 className={styles.sectionTitle}>People Love These</h2>
-              <p className={styles.sectionSubtitle}>
-                Little favourites that keep finding their way into carts.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal stagger={1}>
-            <div className={styles.productGrid}>
-              {BESTSELLERS.map((product, idx) => (
-                <ProductCard key={product.id} product={product} priority={idx < 2} />
-              ))}
-            </div>
-          </ScrollReveal>
-
-          <div className={styles.sectionCtaWrapper}>
-            <Button variant="secondary" size="md" href="/shop?filter=bestseller">
-              View All Bestsellers
-            </Button>
-          </div>
+          <BestsellerShowcase products={BESTSELLERS} />
         </div>
       </section>
 
