@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button/Button';
 import { ProductCard } from '@/components/product/ProductCard/ProductCard';
 import { ScrollReveal } from '@/components/ui/ScrollReveal/ScrollReveal';
 import { ParallaxLayer, CurvedLoop, CurvedCircularBadge } from '@/components/common/Motion';
+import { HeroShowcase } from '@/components/home/HeroShowcase';
 import { AtelierOrbitSphere } from '@/components/exhibition/AtelierOrbitSphere';
 import { getDbProducts, getDbCategories } from '@/services/productDbService';
 import { BUSINESS_RULES } from '@/types/product';
@@ -80,82 +81,8 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Editorial Clay Product Composition with Multi-depth Parallax & 3D Tilt */}
-            <div className={styles.heroComposition}>
-              {/* Main Photo Card with Parallax */}
-              <ParallaxLayer speed={10} tilt={true} style={{ width: '100%', height: '100%' }}>
-                <div className={`${styles.heroMainCard} marching-ants-frame has-reticle`}>
-                  <span className="corner-reticle corner-reticle-tl" />
-                  <span className="corner-reticle corner-reticle-tr" />
-                  <span className="corner-reticle corner-reticle-bl" />
-                  <span className="corner-reticle corner-reticle-br" />
-                  <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
-                  <div className={styles.heroImageFrame}>
-                    <Image
-                      src="/images/products/puzzle-couple-keychain-sq.jpg"
-                      alt="Handcrafted Claypresso Pink Puzzle Piece couple keychain in hand"
-                      fill
-                      priority
-                      sizes="(max-width: 768px) 100vw, 480px"
-                      quality={85}
-                      className={styles.catImage}
-                    />
-                  </div>
-
-                  {/* Tactile Stamp Seal embedded on the photo card like an authentic postmark */}
-                  <div className={styles.heroStamp} aria-hidden="true">
-                    <span>Claypresso</span>
-                    <span>Est. 2026 • BLR</span>
-                  </div>
-                </div>
-              </ParallaxLayer>
-
-              {/* Floating Clay Accent Tile (Layered on bottom-left, counter-drift) */}
-              <ParallaxLayer speed={-8} style={{ position: 'absolute', bottom: '16px', left: '-24px', zIndex: 5 }}>
-                <div className={styles.heroFloatingAccentCard}>
-                  <div
-                    className="washi-tape washi-tape-top-right washi-tape-sage"
-                    style={{ width: 46, height: 14, top: -7, right: 10 }}
-                    aria-hidden="true"
-                  />
-                  <div className={styles.heroAccentImageFrame}>
-                    <Image
-                      src="/images/products/frog-avocado-trio-sq.jpg"
-                      alt="Pond frog and avocado companion charm detail"
-                      fill
-                      priority
-                      sizes="150px"
-                      quality={85}
-                      className={styles.catImage}
-                    />
-                  </div>
-                </div>
-              </ParallaxLayer>
-
-              {/* Floating Studio Badge (Layered on top-right, gentle drift) */}
-              <ParallaxLayer speed={12} style={{ position: 'absolute', top: '16px', right: '-18px', zIndex: 6 }}>
-                <div className={styles.heroFloatingBadge}>
-                  <div className={styles.badgeLogoWrap}>
-                    <Image
-                      src="/images/logo-badge.png"
-                      alt="Claypresso Official Badge"
-                      fill
-                      sizes="44px"
-                      quality={85}
-                      style={{ objectFit: 'contain' }}
-                    />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-espresso)', lineHeight: 1.2 }}>
-                      Claypresso Studio
-                    </div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-muted-brown)', lineHeight: 1.3, marginTop: 2 }}>
-                      Handmade with love • Bangalore
-                    </div>
-                  </div>
-                </div>
-              </ParallaxLayer>
-            </div>
+            {/* 3D Atelier Orbit Showcase (oumahi.art exhibition sphere + dossier modal) */}
+            <HeroShowcase products={ALL_PRODUCTS} />
           </div>
         </div>
       </section>
