@@ -115,6 +115,26 @@
   gap: var(--space-2);
 }
 
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-espresso);
+  border: 1px solid transparent;
+  transition: transform var(--duration-micro) var(--ease-clay-squish),
+              background-color var(--duration-hover) var(--ease-smooth),
+              color var(--duration-hover) var(--ease-smooth);
+}
+
+.iconLink:hover {
+  background-color: rgba(62, 42, 31, 0.08);
+  transform: scale(1.05);
+}
+
 .cartButton {
   position: relative;
   background: var(--color-espresso);

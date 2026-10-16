@@ -153,53 +153,36 @@ export const Header: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit Claypresso Instagram"
-              style={{ display: 'flex' }}
+              className={styles.iconLink}
               data-cursor="link"
             >
-              <IconButton
-                icon={<Instagram size={19} strokeWidth={2} />}
-                aria-label="Instagram @claypresso"
-                tabIndex={-1}
-              />
+              <Instagram size={19} strokeWidth={2} />
             </a>
 
             {/* Account & User Menu Popover */}
-            <div style={{ position: 'relative' }}>
-              <button
-                type="button"
-                onClick={() => setUserDropdownOpen((prev) => !prev)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  cursor: 'pointer',
-                  position: 'relative',
-                  display: 'flex',
-                }}
+            <div style={{ position: 'relative', display: 'flex' }}>
+              <IconButton
+                icon={<User size={20} strokeWidth={2} />}
                 aria-label={currentUser ? `Account menu (${currentUser.firstName})` : 'Account menu'}
-              >
-                <IconButton
-                  icon={<User size={20} strokeWidth={2} />}
-                  aria-label="Account"
-                  tabIndex={-1}
+                onClick={() => setUserDropdownOpen((prev) => !prev)}
+                data-cursor="button"
+              />
+              {currentUser && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 8,
+                    right: 8,
+                    width: 7,
+                    height: 7,
+                    borderRadius: '999px',
+                    background: 'var(--color-warm-brown)',
+                    boxShadow: '0 0 0 2px var(--color-bg-primary)',
+                    pointerEvents: 'none',
+                  }}
+                  title={`Logged in as ${currentUser.firstName}`}
                 />
-                {currentUser && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: 8,
-                      right: 8,
-                      width: 7,
-                      height: 7,
-                      borderRadius: '999px',
-                      background: 'var(--color-warm-brown)',
-                      boxShadow: '0 0 0 2px var(--color-bg-primary)',
-                      pointerEvents: 'none',
-                    }}
-                    title={`Logged in as ${currentUser.firstName}`}
-                  />
-                )}
-              </button>
+              )}
 
               {/* User Dropdown Menu */}
               {userDropdownOpen && (
