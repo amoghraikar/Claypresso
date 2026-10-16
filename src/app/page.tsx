@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button/Button';
 import { ProductCard } from '@/components/product/ProductCard/ProductCard';
 import { ScrollReveal } from '@/components/ui/ScrollReveal/ScrollReveal';
 import { ParallaxLayer, CurvedLoop, CurvedCircularBadge } from '@/components/common/Motion';
+import { AtelierOrbitSphere } from '@/components/exhibition/AtelierOrbitSphere';
 import { getDbProducts, getDbCategories } from '@/services/productDbService';
 import { BUSINESS_RULES } from '@/types/product';
 import styles from './page.module.css';
@@ -13,13 +14,15 @@ import styles from './page.module.css';
 export const revalidate = 10;
 
 export default async function HomePage() {
-  const [bestsellersRes, newArrivalsRes, categories] = await Promise.all([
+  const [bestsellersRes, newArrivalsRes, allProductsRes, categories] = await Promise.all([
     getDbProducts({ collection: 'bestsellers', limit: 8 }),
     getDbProducts({ collection: 'new-arrivals', limit: 4 }),
+    getDbProducts({ limit: 50 }),
     getDbCategories(),
   ]);
   const BESTSELLERS = bestsellersRes.products;
   const NEW_ARRIVALS = newArrivalsRes.products;
+  const ALL_PRODUCTS = allProductsRes.products;
   const CATEGORIES = categories;
   return (
     <>
@@ -31,6 +34,10 @@ export default async function HomePage() {
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
               <div className={styles.heroHeaderRow}>
+                <div className="telemetry-pill" style={{ marginRight: 8, transform: 'scale(0.95)' }}>
+                  <span className="telemetry-dot" />
+                  <span>BLR ATELIER // LIVE // 2026</span>
+                </div>
                 <div className={styles.heroTagline}>
                   <Sparkles size={14} color="var(--color-warm-brown)" />
                   <span>Handmade Clay Studio • Issue 2026</span>
@@ -77,7 +84,11 @@ export default async function HomePage() {
             <div className={styles.heroComposition}>
               {/* Main Photo Card with Parallax */}
               <ParallaxLayer speed={10} tilt={true} style={{ width: '100%', height: '100%' }}>
-                <div className={styles.heroMainCard}>
+                <div className={`${styles.heroMainCard} marching-ants-frame has-reticle`}>
+                  <span className="corner-reticle corner-reticle-tl" />
+                  <span className="corner-reticle corner-reticle-tr" />
+                  <span className="corner-reticle corner-reticle-bl" />
+                  <span className="corner-reticle corner-reticle-br" />
                   <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
                   <div className={styles.heroImageFrame}>
                     <Image
@@ -476,6 +487,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ======================================================================
+          6.5. INTERACTIVE 3D ATELIER ORBIT EXHIBITION (oumahi.art 3D Sphere Experience)
+          ====================================================================== */}
+      <AtelierOrbitSphere products={ALL_PRODUCTS} categories={CATEGORIES} />
 
       {/* ======================================================================
           7. EDITORIAL BRAND STORY

@@ -49,7 +49,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="washi-tape washi-tape-top-left washi-tape-peach" aria-hidden="true" />
-        <div className={styles.imageWrapper}>
+        <div className={`${styles.imageWrapper} has-reticle`}>
+          <span className="corner-reticle corner-reticle-tl" />
+          <span className="corner-reticle corner-reticle-tr" />
+          <span className="corner-reticle corner-reticle-bl" />
+          <span className="corner-reticle corner-reticle-br" />
           <Link
             href={`/product/${product.slug}`}
             className={styles.imageLink}
